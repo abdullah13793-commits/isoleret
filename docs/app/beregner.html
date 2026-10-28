@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beregner</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%232dd4bf'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%2306201d' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%2306201d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+@media (min-width:981px){.calc{grid-template-columns:minmax(320px,400px) minmax(0,1fr)}}
+.big{font-size:28px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.res .kpi .v{font-size:24px}
+input[type=range]{padding:0}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="pagehead"><div><div class="eyebrow">Beregner · EN ISO 12241 · DS 452</div><h1>Én strækning, regnet igennem</h1>
+    <p>Klasse fra tabel 6.4, varmetab med λ ved middeltemperaturen, krævet tykkelse, dugpunkt for kolde rør og økonomi. Kurverne viser hele tykkelsesintervallet, så det økonomisk bedste valg kan ses ved siden af kravet.</p></div>
+    <span class="demo">Eksempelpriser · ret til projektets</span></div>
+  <div class="split calc">
+    <div class="card"><div class="form" id="form"></div></div>
+    <div>
+      <div class="grid g4 res" id="kpis"></div>
+      <div class="card" style="margin-top:14px"><h2 style="font-size:15px">Varmetab mod isoleringstykkelse</h2><div class="note">W/m mod isoleringstykkelse i mm, inkl. tillæg for bæringer · stiplet linje = klassens grænse · prik = valgt tykkelse</div><div id="c1"></div></div>
+      <div class="card" style="margin-top:14px"><h2 style="font-size:15px">Nutidsværdi over 20 år mod tykkelse</h2><div class="note">kr. mod isoleringstykkelse i mm · besparelse i forhold til isoleringen i dag minus pris (eksempelpriser, 3,5 % rente) · højeste punkt = økonomisk optimum</div><div id="c2"></div></div>
+      <div class="card" style="margin-top:14px" id="detail"></div>
+    </div>
+  </div>
+</main>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(async () => {
+const { $, $$, esc, num, css, tip, badge } = IF;
+const KB = await IF.ready();
+const [A] = await IF.load('audit');
+const E = IEngine;
+const ROWS = KB.table_6_4.filter(r => typeof r.gt5 === 'number' || typeof r.le5 === 'number');
+const rowKey = r => [r.system, r.part, r.operation || ''].join('|');
+const rowLabel = r => `${KB.labels[r.system] || r.system}: ${KB.labels[r.part] || r.part}${r.operation ? ' (' + (KB.labels[r.operation] || r.operation) + ')' : ''}`;
+const SPACES = [['20|50', 'Opvarmet rum, 20 °C'], ['22|55', 'Teknikrum, 22 °C'], ['12|65', 'Kælder inden for klimaskærm, 12 °C'], ['4|80', 'Tagrum / ude, 4 °C'], ['custom', 'Andet']];
+const MATS = Object.entries(KB.materials).filter(([k]) => !k.startsWith('ref_'));
+const F = [
+  ['row', 'Anlæg og installationsdel', 'select', ROWS.map(r => [rowKey(r), rowLabel(r)]), 'heating|distribution|season_regulated', 'full'],
+  ['space', 'Placering', 'select', SPACES, '12|65'], ['ta', 'Omgivelse °C', 'number', 12], ['rh', 'Relativ fugt %', 'number', 65],
+  ['tm', 'Medietemperatur °C', 'number', 60], ['hours', 'Driftstimer pr. år', 'number', 5800],
+  ['od', 'Udv. rørdiameter mm', 'number', 60.3], ['bare', 'Rør (overflade)', 'select', Object.entries(KB.bare).map(([k, v]) => [k, v[0]]), 'steel'],
+  ['mat', 'Isoleringsmateriale', 'select', MATS.map(([k, v]) => [k, v.name]), 'stenuld_roerskaal'], ['clad', 'Kappe', 'select', Object.entries(KB.cladding).filter(([k]) => !k.startsWith('ref')).map(([k, v]) => [k, v[0]]), 'pvc'],
+  ['t', 'Valgt tykkelse mm', 'range', 40], ['tnow', 'Tykkelse i dag mm (0 = uisoleret)', 'number', 30],
+  ['sup', 'Bæringer', 'select', [['traditional', 'Gennem isoleringen (+15/25 %)'], ['insulated', 'Uden på isoleringen']], 'traditional'],
+  ['len', 'Længde m', 'number', 20], ['car', 'Energiform', 'select', Object.entries(KB.carriers).map(([k, v]) => [k, v.name]), 'fjernvarme'],
+  ['price', 'Pris kr./kWh', 'number', KB.carriers.fjernvarme.price.toFixed(2)]];
+$('#form').innerHTML = F.map(([k, l, t, o, d, cls]) => t === 'select' ? `<label class="${cls || ''}">${l}<select id="f_${k}">${o.map(([v, n]) => `<option value="${esc(v)}" ${v === d ? 'selected' : ''}>${esc(n)}</option>`).join('')}</select></label>`
+  : t === 'range' ? `<label class="full">${l}: <b id="tv">${o}</b><input id="f_${k}" type="range" min="0" max="160" step="5" value="${o}"></label>`
+  : `<label>${l}<input id="f_${k}" type="number" step="any" value="${o}"></label>`).join('');
+const g = k => $('#f_' + k).value, n = k => parseFloat(g(k));
+$('#f_space').onchange = () => { const v = g('space'); if (v !== 'custom') { const [a, b] = v.split('|'); $('#f_ta').value = a; $('#f_rh').value = b; } calc(); };
+$('#f_car').onchange = () => { $('#f_price').value = KB.carriers[g('car')].price.toFixed(2); calc(); };
+$$('#form input,#form select').forEach(e => e.addEventListener('input', calc));
+const STEPS = m => (KB.steps_mm[m] || [20, 30, 40, 50, 60, 80, 100, 120]).map(x => x / 1000);
+
+function lossAt(t, ctx) { const lay = t > 0 ? [[t, ctx.mat]] : []; const r = E.pipe(ctx.D, lay, ctx.tm, ctx.ta, ctx.clad, {bare: ctx.bare}); return {q: r.q * (lay.length ? ctx.f : 1), r}; }
+function calc() {
+  $('#tv').textContent = g('t');
+  const [sys, part, op] = g('row').split('|');
+  const ctx = {D: n('od') / 1000, tm: n('tm'), ta: n('ta'), rh: n('rh'), mat: g('mat'), clad: g('clad'), bare: g('bare'), hours: n('hours'), L: n('len'), price: n('price')};
+  const rc = E.requiredClass(sys, part, op || null, ctx.ta);
+  const cls = rc ? rc.class : null, outside = ctx.ta <= 5;
+  ctx.f = E.supportFactor(g('sup'), outside);
+  const t = n('t') / 1000, tnow = n('tnow') / 1000;
+  const cur = lossAt(t, ctx), base = lossAt(tnow, ctx);
+  const lim = typeof cls === 'number' && cls > 0 ? E.uLimit(cls, ctx.D) : null;
+  const need = lim ? E.thicknessFor(ctx.D, ctx.mat, ctx.tm, ctx.ta, lim, ctx.clad, ctx.f) : null;
+  const needStd = lim ? E.thicknessFor(ctx.D, ctx.mat, ctx.tm, ctx.ta, lim, ctx.clad, ctx.f, STEPS(ctx.mat)) : null;
+  const cold = ctx.tm < ctx.ta, dew = E.dewPoint(ctx.ta, ctx.rh);
+  const tc = cold ? E.condensationThickness(ctx.D, ctx.mat, ctx.tm, ctx.ta, ctx.rh, ctx.clad) : 0;
+  const U = cur.q / (ctx.tm - ctx.ta);
+  const ok = lim ? U <= lim + 1e-9 : true, condOk = !cold || cur.r.ts >= dew;
+  const st = !condOk ? 'KONDENS' : !lim ? (typeof cls === 'string' ? 'DS439' : 'INGEN_KRAV') : t === 0 ? (ok ? 'OK' : 'MANGLER') : ok ? 'OK' : 'UNDER';
+  const kwh = (base.q - cur.q) * ctx.L * ctx.hours / 1000, cost = t > tnow ? E.upgradeCostPerM(ctx.D, t, ctx.clad, tnow > 0) * ctx.L : 0;
+  const dkk = kwh * ctx.price;
+  $('#kpis').innerHTML = [[`${cls ?? '–'}`, 'isoleringsklasse', rc ? `tabel 6.4, omgivelse ${rc.band}` : ''], [`${num(cur.q, 1)} W/m`, 'varmetab', `U ${num(U, 3)}${lim ? ' / ' + num(lim, 3) : ''} W/mK`],
+    [need ? `${num(need * 1000)} mm` : '–', 'krævet tykkelse', needStd ? `standard: ${num(needStd * 1000)} mm` : ''], [badge(st), 'status', cold ? `dugpunkt ${num(dew, 1)} °C, overflade ${num(cur.r.ts, 1)} °C` : `overflade ${num(cur.r.ts, 1)} °C`]]
+    .map(([v, l, s]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${s}</div></div>`).join('');
+  const ts = []; for (let mm = 0; mm <= 160; mm += 5) ts.push(mm / 1000);
+  const curve = ts.map(x => [x * 1000, lossAt(x, ctx).q]);
+  const qlim = lim ? lim * (ctx.tm - ctx.ta) : null;
+  chart($('#c1'), curve, {y: 'W/m', mark: [t * 1000, cur.q], hline: qlim, hlabel: `klasse ${cls}: ${num(qlim, 1)} W/m`});
+  const npvC = ts.filter(x => x >= tnow).map(x => { const k = (base.q - lossAt(x, ctx).q) * ctx.L * ctx.hours / 1000; const c = x > tnow ? E.upgradeCostPerM(ctx.D, x, ctx.clad, tnow > 0) * ctx.L : 0;
+    return [x * 1000, E.npv(c, k, ctx.price, 20, 0.035, 0)]; });
+  const best = npvC.reduce((a, b) => b[1] > a[1] ? b : a, npvC[0]);
+  chart($('#c2'), npvC, {y: 'kr.', mark: [best[0], best[1]], markLabel: `optimum ${best[0]} mm`, zero: true});
+  $('#detail').innerHTML = `<h3>Resultat</h3><div class="grid g2"><div><div class="sub">Varmetab i dag (${num(tnow * 1000)} mm)</div><div class="big">${num(base.q * ctx.L * ctx.hours / 1000)} kWh/år</div></div>
+    <div><div class="sub">Med ${num(t * 1000)} mm</div><div class="big">${num(cur.q * ctx.L * ctx.hours / 1000)} kWh/år</div></div></div>
+    <div class="sec"><div class="sub">Besparelse ${num(kwh)} kWh/år · ${num(dkk)} kr./år · ${num(kwh * KB.carriers[g('car')].co2)} kg CO₂/år · pris ${num(cost)} kr. · tilbagebetaling ${dkk > 0 && cost > 0 ? num(cost / dkk, 1) + ' år' : '–'}</div>
+    ${cold ? `<div class="sub">Kondens: mindst ${tc === null ? '> 200' : num(tc * 1000)} mm ${esc(KB.materials[ctx.mat].name)} holder overfladen over dugpunktet (${num(dew, 1)} °C).</div>` : ''}
+    <div class="note" style="margin-top:6px">λ ved middeltemperatur: ${cur.r.lam.map(x => num(x, 4)).join(', ') || '–'} W/mK · h<sub>se</sub> ${num(cur.r.h_se, 2)} W/m²K · tillæg for bæringer ×${String(ctx.f).replace('.', ',')}${KB.materials[ctx.mat].max_temp < ctx.tm ? ' · <b>materialets maks. temperatur er overskredet</b>' : ''}</div></div>`;
+  window.LAST = {ctx, cls, U, lim, need, st, q: cur.q};
+}
+function chart(el, pts, o) {
+  const W = 620, H = 220, L = 52, B = 28, Tp = 12, R = 10;
+  const xs = pts.map(p => p[0]), ys = pts.map(p => p[1]).concat(o.hline ? [o.hline] : [], o.zero ? [0] : []);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs); let y0 = Math.min(0, ...ys), y1 = Math.max(...ys) * 1.08 || 1;
+  const X = v => L + (W - L - R) * (v - x0) / (x1 - x0), Y = v => Tp + (H - Tp - B) * (1 - (v - y0) / (y1 - y0));
+  const step = niceStep((y1 - y0) / 4); let s = `<svg class="chart" viewBox="0 0 ${W} ${H}">`;
+  for (let v = Math.ceil(y0 / step) * step; v <= y1; v += step) s += `<line class="ax" x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${L - 6}" y="${Y(v) + 4}" text-anchor="end">${num(v)}</text>`;
+  for (let v = 0; v <= x1; v += 20) s += `<text x="${X(v)}" y="${H - 8}" text-anchor="middle">${v}</text>`;
+
+  if (o.hline) s += `<line x1="${L}" x2="${W - R}" y1="${Y(o.hline)}" y2="${Y(o.hline)}" stroke="var(--ink)" stroke-dasharray="5 4" stroke-width="1.4"/><text x="${W - R - 4}" y="${Y(o.hline) - 5}" text-anchor="end" style="fill:var(--ink)">${o.hlabel}</text>`;
+  s += `<path d="${pts.map((p, i) => (i ? 'L' : 'M') + X(p[0]) + ',' + Y(p[1])).join('')}" fill="none" stroke="var(--bar)" stroke-width="2"/>`;
+  pts.forEach(p => s += `<circle cx="${X(p[0])}" cy="${Y(p[1])}" r="9" fill="transparent" data-t="${p[0]} mm: ${num(p[1], 1)} ${o.y}"/>`);
+  if (o.mark) s += `<circle cx="${X(o.mark[0])}" cy="${Y(o.mark[1])}" r="5" fill="var(--accent)" stroke="var(--panel)" stroke-width="2"/>${o.markLabel ? `<text x="${X(o.mark[0])}" y="${Y(o.mark[1]) - 10}" text-anchor="middle" style="fill:var(--ink);font-weight:600">${o.markLabel}</text>` : ''}`;
+  el.innerHTML = s + '</svg>';
+  el.querySelectorAll('[data-t]').forEach(c => { c.onmousemove = e => tip(c.dataset.t, e); c.onmouseleave = () => tip(null); });
+}
+function niceStep(x) { const p = Math.pow(10, Math.floor(Math.log10(x || 1))), m = x / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 5 ? 5 : 10) * p; }
+function fromRun(id) {
+  const r = A.runs.find(x => x.id === id); if (!r) return;
+  const key = [r.class_row[0], r.class_row[1], r.class_row[2] || ''].join('|');
+  if ($(`#f_row option[value="${key}"]`)) $('#f_row').value = key;
+  $('#f_space').value = 'custom'; $('#f_ta').value = r.ambient; $('#f_rh').value = r.rh; $('#f_tm').value = r.tm; $('#f_hours').value = r.hours; $('#f_od').value = r.od_mm;
+  $('#f_bare').value = r.material === 'Kobber' ? 'copper' : 'steel'; $('#f_len').value = r.length; $('#f_sup').value = r.supports;
+  const p = r.proposal, ins = r.insulation;
+  $('#f_tnow').value = ins ? Math.round(ins.thickness * 1000) : 0;
+  $('#f_mat').value = p ? p.material : ins ? ins.material : 'stenuld_roerskaal'; $('#f_clad').value = p ? p.cladding : ins ? ins.cladding : 'pvc';
+  $('#f_t').value = p ? p.thickness_mm : ins ? Math.round(ins.thickness * 1000) : 40;
+  calc();
+}
+calc(); if (location.hash.length > 1) fromRun(decodeURIComponent(location.hash.slice(1)));
+window.addEventListener('hashchange', () => fromRun(decodeURIComponent(location.hash.slice(1))));
+window.CALC = {calc, fromRun};
+})();
+</script>
+</body>
+</html>

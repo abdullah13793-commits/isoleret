@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Isoleret</title>
+<meta name="description" content="Technical-insulation audit for a whole building: DS 452 class from table 6.4, EN ISO 12241 heat loss, missing thickness, condensation, savings and payback, and a fire cross-check at every penetration.">
+<meta property="og:title" content="Isoleret: technical insulation against DS 452, with a fire cross-check">
+<meta property="og:description" content="Whole-building audit from IFC or a survey · validated against DS 452 Annex A and Energistyrelsen's tables · every number traceable">
+<meta property="og:image" content="https://abdullah13793-commits.github.io/isoleret/media/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%232dd4bf'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%2306201d' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%2306201d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="media/site.css">
+<style>:root{--accent:#0f766e;--accent-2:#2dd4bf;--glow:rgba(45,212,191,.2)}
+.find{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:28px;align-items:center}
+.find .q{font-size:22px;line-height:1.35;letter-spacing:-.01em;border-left:3px solid var(--acc);padding-left:16px}
+@media (max-width:980px){.find{grid-template-columns:1fr}}</style>
+</head>
+<body data-accent="teal">
+<nav class="top"><div class="wrap">
+  <a class="brand" href="#"><i class="logo teal"></i>Isoleret</a>
+  <div class="links"><a href="#tour">Tour</a><a href="#why">Energy meets fire</a><a href="#validation">Validation</a><a href="#verify">Verification</a><a href="https://github.com/abdullah13793-commits/isoleret">GitHub</a></div>
+  <button class="theme" id="theme" aria-label="Toggle light/dark">◐</button>
+  <a class="cta sm" href="app/">Open the app</a>
+</div></nav>
+
+<header class="hero"><div class="wrap hero-grid">
+  <div class="reveal">
+    <div class="eyebrow">Technical insulation · DS 452 · EN ISO 12241</div>
+    <h1>Every pipe in the building, against DS 452, <span class="hl">and against the fire seals it passes through.</span></h1>
+    <p class="lead">Isoleret audits a whole building from an IFC model or a site survey. Each run gets its class from table 6.4, its heat
+      loss from EN ISO 12241, plus the missing thickness, condensation risk, savings and payback. Each fire-rated crossing is checked so an energy
+      upgrade never quietly breaks a tested penetration seal.</p>
+    <div class="ctas"><a class="cta" href="app/">Open the app <span>→</span></a><a class="ghost" href="#tour">Watch the tour</a></div>
+    <div class="badges"><span>IFC4 / CSV survey</span><span>DS 452 tabel 6.4</span><span>EN ISO 12241</span><span>ETA cross-check</span><span>MCP</span></div>
+  </div>
+  <div class="hero-media reveal d2"><div class="frame"><video src="media/loop.mp4" poster="media/loop_poster.jpg" autoplay muted loop playsinline preload="auto"></video>
+    <div class="frame-tag">Heat-loss map · fictitious demo building</div></div></div>
+</div></header>
+
+<section class="stats"><div class="wrap grid6">
+  <div class="stat reveal"><b data-count="72" data-suffix="/72">0</b><span>DS 452 Annex A cells within 3 mm</span></div>
+  <div class="stat reveal d1"><b data-count="96">0</b><span>Energihåndbogen cells reproduced</span></div>
+  <div class="stat reveal d2"><b data-count="25" data-suffix="/25">0</b><span>answer key, class from table 6.4</span></div>
+  <div class="stat reveal d3"><b data-count="12998">0</b><span>kWh/yr saved in the demo building*</span></div>
+  <div class="stat reveal d4"><b data-count="19">0</b><span>fire conflicts found and resolved</span></div>
+  <div class="stat reveal d5"><b data-count="14" data-suffix=" tests">0</b><span>incl. browser = server to 1e-9</span></div>
+</div><p class="wrap fine">* at example prices: 9,749 DKK/yr, 8.1-year simple payback; fictitious building.</p></section>
+
+<section id="tour" class="sec"><div class="wrap">
+  <div class="sh reveal"><div class="eyebrow">Tour</div><h2>From the 3D heat-loss map to a number you can check by hand</h2><p>Rendered frame by frame from the running app.</p></div>
+  <div class="video reveal"><video src="media/tour.mp4" poster="media/cover.jpg" controls playsinline preload="metadata"></video></div>
+</div></section>
+
+<section id="why" class="sec alt"><div class="wrap find">
+  <div class="reveal"><div class="eyebrow">Energy meets fire</div><h2>Thicker insulation can break a tested seal</h2>
+    <p class="q">A penetration seal is classified only with the insulation it was tested with. An energy upgrade that changes the type, thickness or brand turns a tested seal into a deviation.</p>
+    <p style="color:var(--ink2)">Isoleret checks each fire-rated crossing against the tested configurations (ETA-21/0110, ETA-20/1322) before and after the proposal. Where they conflict, it applies DS 452 table 6.2, which needs only half the thickness in a penetration: keep the tested insulation over the tested length and upgrade outside it.</p>
+    <p><a href="app/brand.html">See the 29 crossings in the demo →</a></p></div>
+  <div class="shot reveal d1"><img loading="lazy" src="media/shot_fire.jpg" alt="Fire cross-check"></div>
+</div></section>
+
+<section id="validation" class="sec"><div class="wrap find">
+  <div class="shot reveal"><img loading="lazy" src="media/shot_method.jpg" alt="Validation charts"></div>
+  <div class="reveal d1"><div class="eyebrow">Validation</div><h2>Reproduces the published tables</h2>
+    <p style="color:var(--ink2)"><b>DS 452 Annex A</b> (tables A.1/A.2, 72 cells): RMS 0.76 mm, max 2.4 mm, with one stated design λ (the standard does not print it).
+      <b>Energihåndbogen</b> (tables 11/12/15/16, 96 cells, λ 0.038 as stated): bare-pipe savings within 1.7 %.</p>
+    <p class="q">Finding: the basement tables say half the loss is useful heat. The published numbers only reproduce without that rule.</p>
+    <p><a href="app/metode.html">Method and charts →</a></p></div>
+</div></section>
+
+<section id="verify" class="sec alt"><div class="wrap">
+  <div class="sh reveal"><div class="eyebrow">Verification</div><h2>Every file, every number, the method</h2><p>A manual check for a person, and an automated one on every change.</p></div>
+  <div class="three">
+    <div class="pillar reveal"><span class="n">1</span><b>The file</b><p>SHA-256 manifest of every deliverable with producer, model and code version. Drag a file onto <a href="app/verify.html">Verificér</a>: hashed in the browser, never uploaded.</p></div>
+    <div class="pillar reveal d1"><span class="n">2</span><b>The number</b><p>"Vis beregning" on every run: λ at the mean temperature, R per layer, h<sub>cv</sub>, h<sub>r</sub>, q, U against the class limit, each landing on the report's value ✓. The same steps are in the PDF appendix.</p></div>
+    <div class="pillar reveal d2"><span class="n">3</span><b>The method</b><p><code>python -m isoleret.reproduce</code> re-runs validation and audit from the source model: 6/6. Cell-by-cell CSVs of both validations.</p></div>
+  </div>
+  <div class="shot reveal"><img loading="lazy" src="media/shot_trace.jpg" alt="Calculation trace"></div>
+  <p class="more reveal"><a href="https://github.com/abdullah13793-commits/isoleret/blob/main/docs/VERIFY.md">Output-by-output verification table →</a></p>
+</div></section>
+
+<section class="sec"><div class="wrap">
+  <div class="sh reveal"><div class="eyebrow">Gallery</div><h2>Screens</h2></div>
+  <div class="gallery">
+    <img class="reveal" loading="lazy" src="media/shot_calc.jpg" alt="Calculator">
+    <img class="reveal d1" loading="lazy" src="media/shot_audit.jpg" alt="Audit">
+    <img class="reveal" loading="lazy" src="media/shot_verify.jpg" alt="Verify">
+    <img class="reveal d1" loading="lazy" src="media/hero.jpg" alt="Heat-loss map">
+  </div>
+</div></section>
+
+<section class="sec alt"><div class="wrap split2">
+  <div class="reveal"><div class="eyebrow">MCP</div><h2>Ask it from an assistant</h2>
+    <p>check_pipe, ds452_class, audit_overview, list_runs, get_run, fire_crosscheck, materials, run_audit. Same engine, same numbers.</p></div>
+  <div class="code reveal d1"><button class="copy" data-copy="cfg">Copy</button><pre id="cfg">{"mcpServers": {"isoleret": {
+  "command": "python",
+  "args": ["&lt;repo&gt;/src/mcp_server.py"]}}}</pre></div>
+</div></section>
+
+<footer><div class="wrap">
+  <div><b>Isoleret</b> · decision support · λ curves are typical class values, prices and CO₂ factors are examples · the demo building is fictitious.</div>
+  <div class="fl"><a href="app/">App</a><a href="https://github.com/abdullah13793-commits/isoleret">Source</a><a href="https://abdullah13793-commits.github.io/gennemfoert/">Gennemført 2.0: the fire-seal counterpart</a></div>
+</div></footer>
+<div class="lightbox" id="lb"><img alt=""></div>
+<script src="media/site.js"></script>
+</body>
+</html>

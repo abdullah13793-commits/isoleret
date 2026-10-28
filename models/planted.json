@@ -1,0 +1,282 @@
+[
+ {
+  "id": "K1",
+  "name": "Varme fremløb stål 60,3",
+  "segments": [
+   "2kYCmGTfvQ8PR4MAK9DLoY"
+  ],
+  "components": 3,
+  "class": 3,
+  "status": "UNDER"
+ },
+ {
+  "id": "K2",
+  "name": "Varme retur stål 60,3",
+  "segments": [
+   "07N0ZF5k5K1xnbbQofGeLb"
+  ],
+  "components": 2,
+  "class": 3,
+  "status": "UNDER"
+ },
+ {
+  "id": "K3",
+  "name": "Brugsvand varmt stål 42,4 (galv.)",
+  "segments": [
+   "1o$6qhko9H0gMk1SmsF_nG"
+  ],
+  "components": 2,
+  "class": 4,
+  "status": "UNDER"
+ },
+ {
+  "id": "K4",
+  "name": "Cirkulation kobber 28x1",
+  "segments": [
+   "3XwbnNV8fRyemcqGIDq$8i"
+  ],
+  "components": 0,
+  "class": 4,
+  "status": "UNDER"
+ },
+ {
+  "id": "K5",
+  "name": "Koldt vand kobber 54x1,5",
+  "segments": [
+   "2d9Zlp3BXLTxYX4UVxQQfn"
+  ],
+  "components": 0,
+  "class": 2,
+  "status": "MANGLER"
+ },
+ {
+  "id": "K6",
+  "name": "Varme fremløb stål 60,3, renoveret delstrækning",
+  "segments": [
+   "3X4gAKlxHLFQL2zkQi3MtR"
+  ],
+  "components": 0,
+  "class": 3,
+  "status": "OK"
+ },
+ {
+  "id": "T1",
+  "name": "Fjernvarmestik stål 60,3",
+  "segments": [
+   "0UBe0aeq5SgQSX75jfValJ",
+   "0v2yfNbcrPvPCmv36o3Ugq"
+  ],
+  "components": 5,
+  "class": 4,
+  "status": "UNDER"
+ },
+ {
+  "id": "T2",
+  "name": "Koldt vand kobber 54x1,5, teknikrum",
+  "segments": [
+   "37OFEOIfHLOw$Z0utna3Wf",
+   "3881jVHzfTxu7aFf3CeiAy"
+  ],
+  "components": 2,
+  "class": 2,
+  "status": "KONDENS"
+ },
+ {
+  "id": "S-A1-V",
+  "name": "Varmestreng stål 42,4x2,6, skakt A1",
+  "segments": [
+   "0O7E25SS5OjgJN9kh$_zQF",
+   "21f8uTW_zQ3vT5_exRoH4S",
+   "1fCsbmsG5SvODJsTX4Uz$L",
+   "19Sf8qVY1Pv8RZ28zTLgeH",
+   "2zUIXau5TMlemqFVw65NGu"
+  ],
+  "components": 0,
+  "class": 3,
+  "status": "UNDER"
+ },
+ {
+  "id": "S-A1-K",
+  "name": "Stigstreng koldt vand kobber 22x1, skakt A1",
+  "segments": [
+   "0vW24qb_DON9Yvc1Qo5jQQ",
+   "1p0vXTN9TVV9SYjkQuodEp",
+   "1qP$WmjjbKXfqADfwXgdtw",
+   "3sxNJMxs9IPA2T1$ETMkrc",
+   "3DHASWGbrI5grK2MoB2YYg"
+  ],
+  "components": 0,
+  "class": 2
+ },
+ {
+  "id": "S-A2-V",
+  "name": "Varmestreng stål 42,4x2,6, skakt A2",
+  "segments": [
+   "1fdzWZB4jVpAys33H0Miz8",
+   "0N0cpjHrXKNwmr4VRcHEjp",
+   "1sW_41Hf5KQfg1rzEcKU9H",
+   "2gAXRebL9G5wjwN0CCvoF6",
+   "1dhSvgmHTQ4QNcFMzv9KD9"
+  ],
+  "components": 0,
+  "class": 3,
+  "status": "UNDER"
+ },
+ {
+  "id": "S-A2-K",
+  "name": "Stigstreng koldt vand kobber 22x1, skakt A2",
+  "segments": [
+   "2mkL7ZFFbGwfc6Z1ycEW2$",
+   "3B0T0k7DrSCPbZlriFk39c",
+   "2cCCHGxqPRJABY_kjx5Ry0",
+   "06qYLUj3nU2QEz8wUgOs1O",
+   "1N9X7$jnvVigyLhmIAksro"
+  ],
+  "components": 0,
+  "class": 2
+ },
+ {
+  "id": "S-B1-VV",
+  "name": "Stigstreng varmt brugsvand kobber 28x1, skakt B1",
+  "segments": [
+   "36xp$RPF5IUxY377_5S$Sr",
+   "3W18e$2wLJ7uY1CDyiOqd8",
+   "2Nt6FPKNvTeQwb3gQGE0yP",
+   "34luVAhCrRROUkqfyGXLC3",
+   "2oDo0xhFvIp8zQ1XkeRkPh"
+  ],
+  "components": 0,
+  "class": 4,
+  "status": "UNDER"
+ },
+ {
+  "id": "S-B1-K",
+  "name": "Stigstreng koldt vand kobber 22x1, skakt B1",
+  "segments": [
+   "1b_eu2HPvIkOvILNYyyeFs",
+   "36TFRBcy1GoBwZm4PLVJPU",
+   "2Q6ZON4GrKp9$tNDwNPBv7",
+   "2_Ll0qEF9Ixhi6jVBhQ2rn",
+   "2pA6YBiGTVnuDt_5f4CcL6"
+  ],
+  "components": 0,
+  "class": 2
+ },
+ {
+  "id": "S-B2-V",
+  "name": "Varmestreng stål 42,4x2,6, skakt B2",
+  "segments": [
+   "3beNM_9zLQnAAlq64g1Knv",
+   "3Ozo64HenJwxduJFyM0_OQ",
+   "20BJBbLrXS$gLjChulN71B",
+   "3IwZvnffTLQBxOQf_pOzv3",
+   "2StVWRth5JRxKFhWo0GGn2"
+  ],
+  "components": 0,
+  "class": 3,
+  "status": "UNDER"
+ },
+ {
+  "id": "S-B2-K",
+  "name": "Stigstreng koldt vand kobber 22x1, skakt B2",
+  "segments": [
+   "3IeKBPgkbKgO5ng63mHs5C",
+   "2oHJm8vHzJdO3m95FJvom0",
+   "1drcWBBT5KEQ9QDfIyUkJV",
+   "26SVWNwVnL5hJ9iUAYpda0",
+   "1EjoHxgK1Vv813xKglRQGB"
+  ],
+  "components": 0,
+  "class": 2
+ },
+ {
+  "id": "L0-V",
+  "name": "Radiatorforbindelse kobber 22x1, Stueetage",
+  "segments": [
+   "0YFeNQBYLQvfmoG2lgAW6N"
+  ],
+  "components": 0,
+  "class": 2,
+  "status": "MANGLER"
+ },
+ {
+  "id": "L0-VV",
+  "name": "Brugsvandsgren kobber 22x1, Stueetage",
+  "segments": [
+   "0JXRF2gL1O4hr4N3SHtmO3"
+  ],
+  "components": 0,
+  "class": 4,
+  "status": "UNDER"
+ },
+ {
+  "id": "L1-V",
+  "name": "Radiatorforbindelse kobber 22x1, 1. sal",
+  "segments": [
+   "3G_CQ631nRxP5P5s6sgi6B"
+  ],
+  "components": 0,
+  "class": 2,
+  "status": "MANGLER"
+ },
+ {
+  "id": "L1-VV",
+  "name": "Brugsvandsgren kobber 22x1, 1. sal",
+  "segments": [
+   "0MKiTOC8bKse9phkvvtmOI"
+  ],
+  "components": 0,
+  "class": 4,
+  "status": "UNDER"
+ },
+ {
+  "id": "L2-V",
+  "name": "Radiatorforbindelse kobber 22x1, 2. sal",
+  "segments": [
+   "1PKwfwQWrMwBVCxoFnH9ll"
+  ],
+  "components": 0,
+  "class": 2,
+  "status": "MANGLER"
+ },
+ {
+  "id": "L2-VV",
+  "name": "Brugsvandsgren kobber 22x1, 2. sal (bæringer uden på isoleringen)",
+  "segments": [
+   "0fPtTDoanInvWgYX5NF6w9"
+  ],
+  "components": 0,
+  "class": 4,
+  "status": "OK"
+ },
+ {
+  "id": "R1",
+  "name": "Cirkulation kobber 28x1, tagrum",
+  "segments": [
+   "3G5tV_mKbPPA2Q17mN5pVk"
+  ],
+  "components": 0,
+  "class": 6,
+  "status": "UNDER"
+ },
+ {
+  "id": "R2",
+  "name": "Varme fremløb stål 33,7 til tagaggregat",
+  "segments": [
+   "3JW$rDOmrM5PM2Aq6m8DlG"
+  ],
+  "components": 0,
+  "class": 6,
+  "status": "UNDER"
+ },
+ {
+  "id": "R3",
+  "name": "Koldt vand kobber 22x1 til tagaggregat",
+  "segments": [
+   "0NA33QDmHOvR4613719_3G"
+  ],
+  "components": 0,
+  "class": "DS 439",
+  "status": "DS439"
+ }
+]

@@ -1,0 +1,42 @@
+{
+ "index.html|desk": {
+  "errors": [],
+  "h_overflow_px": 0
+ },
+ "audit.html|desk": {
+  "errors": [],
+  "h_overflow_px": 0
+ },
+ "beregner.html|desk": {
+  "errors": [],
+  "h_overflow_px": 0
+ },
+ "brand.html|desk": {
+  "errors": [],
+  "h_overflow_px": 0
+ },
+ "metode.html|desk": {
+  "errors": [],
+  "h_overflow_px": 0
+ },
+ "index.html|phone": {
+  "errors": [],
+  "h_overflow_px": 0
+ },
+ "audit.html|phone": {
+  "errors": [],
+  "h_overflow_px": 0
+ },
+ "beregner.html|phone": {
+  "errors": [],
+  "h_overflow_px": 0
+ },
+ "brand.html|phone": {
+  "errors": [],
+  "h_overflow_px": 0
+ },
+ "metode.html|phone": {
+  "errors": [],
+  "h_overflow_px": 0
+ }
+}

@@ -1,0 +1,40 @@
+{
+ "ok": true,
+ "checks": [
+  {
+   "check": "Validering 1: DS 452 anneks A genberegnet (72 værdier)",
+   "ok": true,
+   "detail": "RMS 0.76 mm, max 2.4 mm"
+  },
+  {
+   "check": "Validering 2: Energihåndbogen genberegnet (96 værdier)",
+   "ok": true,
+   "detail": "uisolerede inden for 1.7 %"
+  },
+  {
+   "check": "Audit: klasse, status, varmetab, forslag, besparelse, pris, brandkrydstjek pr. strækning",
+   "ok": true,
+   "detail": "25 strækninger, 0 forskelle []"
+  },
+  {
+   "check": "Facitliste (klasse fra tabel 6.4, status med klar margin til anneks A)",
+   "ok": true,
+   "detail": "25/25"
+  },
+  {
+   "check": "Opsummering",
+   "ok": true,
+   "detail": "12998 kWh/år, 78520 kr."
+  },
+  {
+   "check": "Manifest: SHA-256 for hver leveret fil",
+   "ok": true,
+   "detail": "11 filer, 0 ændret []"
+  }
+ ],
+ "inputs": {
+  "model": "fc3a5302c359f135",
+  "fire_kb": "24c668bf97ac",
+  "code": "4a8b96f78b69"
+ }
+}

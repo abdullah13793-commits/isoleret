@@ -1,0 +1,26 @@
+﻿id;navn;system;del;drift;medie_C;timer;ydre_diameter_mm;godstykkelse_mm;materiale;laengde_m;rum;omgivelse_C;rf_pct;zone;isolering;isolering_mm;kappe;fabrikat;baeringer;ventiler;pumper;maalere
+K1;Varme fremløb stål 60,3;heating;distribution;season_regulated;60.0;5800.0;60.3;2.9;Stål;16.0;Kældergang;12.0;65;uopvarmet, inden for klimaskærm;stenuld_lamel;30;laerred;Stenuld lamelmåtte;traditional;2;1;0
+K2;Varme retur stål 60,3;heating;distribution;season_regulated;35.0;5800.0;60.3;2.9;Stål;27.0;Kældergang;12.0;65;uopvarmet, inden for klimaskærm;stenuld_lamel;30;laerred;Stenuld lamelmåtte;traditional;2;0;0
+K3;Brugsvand varmt stål 42,4 (galv.);dhw;distribution;;55.0;8760.0;42.4;2.6;Stål;27.0;Kældergang;12.0;65;uopvarmet, inden for klimaskærm;stenuld_lamel;40;laerred;Stenuld lamelmåtte;traditional;2;0;0
+K4;Cirkulation kobber 28x1;dhw;distribution;;50.0;8760.0;28.0;1.0;Kobber;27.0;Kældergang;12.0;65;uopvarmet, inden for klimaskærm;stenuld_roerskaal;20;pvc;Stenuld rørskål 80 kg/m³;traditional;0;0;0
+K5;Koldt vand kobber 54x1,5;cold_water;pipes;;10.0;8760.0;54.0;1.5;Kobber;27.0;Kældergang;12.0;65;uopvarmet, inden for klimaskærm;;;;;traditional;0;0;0
+K6;Varme fremløb stål 60,3, renoveret delstrækning;heating;distribution;season_regulated;60.0;5800.0;60.3;2.9;Stål;11.0;Kældergang;12.0;65;uopvarmet, inden for klimaskærm;stenuld_roerskaal;80;pvc;Stenuld rørskål 80 kg/m³;traditional;0;0;0
+L0-V;Radiatorforbindelse kobber 22x1, Stueetage;heating;connection_other_room;;60.0;5800.0;22.0;1.0;Kobber;14.8;Lejligheder, stue;20.0;50;opvarmet;;;;;traditional;0;0;0
+L0-VV;Brugsvandsgren kobber 22x1, Stueetage;dhw;distribution;;55.0;8760.0;22.0;1.0;Kobber;14.8;Lejligheder, stue;20.0;50;opvarmet;stenuld_roerskaal;20;pvc;Stenuld rørskål 80 kg/m³;traditional;0;0;0
+L1-V;Radiatorforbindelse kobber 22x1, 1. sal;heating;connection_other_room;;60.0;5800.0;22.0;1.0;Kobber;14.8;Lejligheder, 1. sal;20.0;50;opvarmet;;;;;traditional;0;0;0
+L1-VV;Brugsvandsgren kobber 22x1, 1. sal;dhw;distribution;;55.0;8760.0;22.0;1.0;Kobber;14.8;Lejligheder, 1. sal;20.0;50;opvarmet;stenuld_roerskaal;20;pvc;Stenuld rørskål 80 kg/m³;traditional;0;0;0
+L2-V;Radiatorforbindelse kobber 22x1, 2. sal;heating;connection_other_room;;60.0;5800.0;22.0;1.0;Kobber;14.8;Lejligheder, 2. sal;20.0;50;opvarmet;;;;;traditional;0;0;0
+L2-VV;Brugsvandsgren kobber 22x1, 2. sal (bæringer uden på isoleringen);dhw;distribution;;55.0;8760.0;22.0;1.0;Kobber;14.8;Lejligheder, 2. sal;20.0;50;opvarmet;stenuld_roerskaal;50;pvc;Stenuld rørskål 80 kg/m³;insulated;0;0;0
+R1;Cirkulation kobber 28x1, tagrum;dhw;distribution;;50.0;8760.0;28.0;1.0;Kobber;23.3;Tagrum;4.0;80;uden for klimaskærm;stenuld_lamel;30;laerred;Stenuld lamelmåtte;traditional;0;0;0
+R2;Varme fremløb stål 33,7 til tagaggregat;heating;distribution;other;60.0;5800.0;33.7;2.6;Stål;13.4;Tagrum;4.0;80;uden for klimaskærm;stenuld_lamel;50;laerred;Stenuld lamelmåtte;traditional;0;0;0
+R3;Koldt vand kobber 22x1 til tagaggregat;cold_water;pipes;;10.0;8760.0;22.0;1.0;Kobber;13.8;Tagrum;4.0;80;uden for klimaskærm;elastomer;13;elastomer;Kaiflex ST;traditional;0;0;0
+S-A1-K;Stigstreng koldt vand kobber 22x1, skakt A1;cold_water;pipes;;10.0;8760.0;22.0;1.0;Kobber;15.15;Skakt A1;20.0;50;opvarmet;elastomer;13;elastomer;Kaiflex ST;traditional;0;0;0
+S-A1-V;Varmestreng stål 42,4x2,6, skakt A1;heating;distribution;season_regulated;60.0;5800.0;42.4;2.6;Stål;16.3;Skakt A1;20.0;50;opvarmet;stenuld_roerskaal;30;pvc;Stenuld rørskål 80 kg/m³;traditional;0;0;0
+S-A2-K;Stigstreng koldt vand kobber 22x1, skakt A2;cold_water;pipes;;10.0;8760.0;22.0;1.0;Kobber;15.15;Skakt A2;20.0;50;opvarmet;elastomer;13;elastomer;Kaiflex ST;traditional;0;0;0
+S-A2-V;Varmestreng stål 42,4x2,6, skakt A2;heating;distribution;season_regulated;60.0;5800.0;42.4;2.6;Stål;16.3;Skakt A2;20.0;50;opvarmet;stenuld_roerskaal;30;pvc;Stenuld rørskål 80 kg/m³;traditional;0;0;0
+S-B1-K;Stigstreng koldt vand kobber 22x1, skakt B1;cold_water;pipes;;10.0;8760.0;22.0;1.0;Kobber;15.15;Skakt B1;20.0;50;opvarmet;elastomer;13;elastomer;Armaflex AF;traditional;0;0;0
+S-B1-VV;Stigstreng varmt brugsvand kobber 28x1, skakt B1;dhw;distribution;;55.0;8760.0;28.0;1.0;Kobber;16.3;Skakt B1;20.0;50;opvarmet;stenuld_roerskaal;30;pvc;Stenuld rørskål 80 kg/m³;traditional;0;0;0
+S-B2-K;Stigstreng koldt vand kobber 22x1, skakt B2;cold_water;pipes;;10.0;8760.0;22.0;1.0;Kobber;15.15;Skakt B2;20.0;50;opvarmet;elastomer;13;elastomer;Kaiflex ST;traditional;0;0;0
+S-B2-V;Varmestreng stål 42,4x2,6, skakt B2;heating;distribution;season_regulated;60.0;5800.0;42.4;2.6;Stål;16.3;Skakt B2;20.0;50;opvarmet;stenuld_roerskaal;30;pvc;Stenuld rørskål 80 kg/m³;traditional;0;0;0
+T1;Fjernvarmestik stål 60,3;heating;distribution;other;70.0;8760.0;60.3;2.9;Stål;14.1;Teknikrum;22.0;55;opvarmet;stenuld_roerskaal;40;alu_oxid;Stenuld rørskål 80 kg/m³;traditional;4;0;1
+T2;Koldt vand kobber 54x1,5, teknikrum;cold_water;pipes;;10.0;8760.0;54.0;1.5;Kobber;10.95;Teknikrum;22.0;55;opvarmet;;;;;traditional;2;0;0

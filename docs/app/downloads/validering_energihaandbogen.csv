@@ -1,0 +1,97 @@
+table;D;from_mm;to_mm;published;model;model_with_halving
+T11 Centralvarme, kælder;35;0;45;217;220.0;110.0
+T11 Centralvarme, kælder;35;0;50;220;221.6;110.8
+T11 Centralvarme, kælder;35;20;45;18;17.0;8.5
+T11 Centralvarme, kælder;35;20;50;21;18.6;9.3
+T11 Centralvarme, kælder;35;30;45;8;7.4;3.7
+T11 Centralvarme, kælder;35;30;50;11;9.0;4.5
+T11 Centralvarme, kælder;48;0;45;290;293.3;146.6
+T11 Centralvarme, kælder;48;0;50;293;295.4;147.7
+T11 Centralvarme, kælder;48;20;45;23;22.5;11.3
+T11 Centralvarme, kælder;48;20;50;27;24.6;12.3
+T11 Centralvarme, kælder;48;30;45;10;9.7;4.9
+T11 Centralvarme, kælder;48;30;50;14;11.8;5.9
+T11 Centralvarme, kælder;60;0;45;355;359.0;179.5
+T11 Centralvarme, kælder;60;0;50;360;361.5;180.8
+T11 Centralvarme, kælder;60;20;45;29;27.7;13.8
+T11 Centralvarme, kælder;60;20;50;34;30.2;15.1
+T11 Centralvarme, kælder;60;30;45;13;11.9;5.9
+T11 Centralvarme, kælder;60;30;50;17;14.4;7.2
+T11 Centralvarme, kælder;89;0;45;509;512.4;256.2
+T11 Centralvarme, kælder;89;0;50;515;516.1;258.1
+T11 Centralvarme, kælder;89;20;45;42;40.1;20.0
+T11 Centralvarme, kælder;89;20;50;49;43.7;21.9
+T11 Centralvarme, kælder;89;30;45;18;17.1;8.6
+T11 Centralvarme, kælder;89;30;50;25;20.8;10.4
+T12 Centralvarme, loft;35;0;45;307;307.4;
+T12 Centralvarme, loft;35;0;50;311;309.6;
+T12 Centralvarme, loft;35;20;45;23;23.1;
+T12 Centralvarme, loft;35;20;50;28;25.2;
+T12 Centralvarme, loft;35;30;45;10;10.0;
+T12 Centralvarme, loft;35;30;50;14;12.2;
+T12 Centralvarme, loft;48;0;45;409;408.4;
+T12 Centralvarme, loft;48;0;50;415;411.3;
+T12 Centralvarme, loft;48;20;45;32;30.6;
+T12 Centralvarme, loft;48;20;50;38;33.5;
+T12 Centralvarme, loft;48;30;45;13;13.2;
+T12 Centralvarme, loft;48;30;50;19;16.0;
+T12 Centralvarme, loft;60;0;45;501;498.9;
+T12 Centralvarme, loft;60;0;50;508;502.3;
+T12 Centralvarme, loft;60;20;45;39;37.6;
+T12 Centralvarme, loft;60;20;50;46;41.0;
+T12 Centralvarme, loft;60;30;45;17;16.1;
+T12 Centralvarme, loft;60;30;50;23;19.6;
+T12 Centralvarme, loft;89;0;45;715;709.5;
+T12 Centralvarme, loft;89;0;50;725;714.5;
+T12 Centralvarme, loft;89;20;45;57;54.4;
+T12 Centralvarme, loft;89;20;50;67;59.3;
+T12 Centralvarme, loft;89;30;45;25;23.2;
+T12 Centralvarme, loft;89;30;50;34;28.2;
+T15 Varmt brugsvand, kælder;35;0;45;455;459.6;229.8
+T15 Varmt brugsvand, kælder;35;0;50;461;462.7;231.4
+T15 Varmt brugsvand, kælder;35;20;45;35;33.3;16.7
+T15 Varmt brugsvand, kælder;35;20;50;41;36.5;18.2
+T15 Varmt brugsvand, kælder;35;30;45;15;14.4;7.2
+T15 Varmt brugsvand, kælder;35;30;50;21;17.5;8.8
+T15 Varmt brugsvand, kælder;48;0;45;607;611.8;305.9
+T15 Varmt brugsvand, kælder;48;0;50;615;615.9;307.9
+T15 Varmt brugsvand, kælder;48;20;45;46;44.3;22.1
+T15 Varmt brugsvand, kælder;48;20;50;53;48.4;24.2
+T15 Varmt brugsvand, kælder;48;30;45;19;19.0;9.5
+T15 Varmt brugsvand, kælder;48;30;50;27;23.1;11.6
+T15 Varmt brugsvand, kælder;60;0;45;745;748.2;374.1
+T15 Varmt brugsvand, kælder;60;0;50;754;753.2;376.6
+T15 Varmt brugsvand, kælder;60;20;45;56;54.3;27.2
+T15 Varmt brugsvand, kælder;60;20;50;66;59.3;29.7
+T15 Varmt brugsvand, kælder;60;30;45;25;23.3;11.6
+T15 Varmt brugsvand, kælder;60;30;50;34;28.3;14.1
+T15 Varmt brugsvand, kælder;89;0;45;1065;1066.9;533.5
+T15 Varmt brugsvand, kælder;89;0;50;1079;1074.1;537.0
+T15 Varmt brugsvand, kælder;89;20;45;81;78.7;39.3
+T15 Varmt brugsvand, kælder;89;20;50;95;85.8;42.9
+T15 Varmt brugsvand, kælder;89;30;45;35;33.6;16.8
+T15 Varmt brugsvand, kælder;89;30;50;49;40.7;20.4
+T16 Varmt brugsvand, loft;35;0;45;596;593.2;
+T16 Varmt brugsvand, loft;35;0;50;604;597.2;
+T16 Varmt brugsvand, loft;35;20;45;44;42.2;
+T16 Varmt brugsvand, loft;35;20;50;52;46.2;
+T16 Varmt brugsvand, loft;35;30;45;19;18.3;
+T16 Varmt brugsvand, loft;35;30;50;27;22.2;
+T16 Varmt brugsvand, loft;48;0;45;793;787.6;
+T16 Varmt brugsvand, loft;48;0;50;803;792.8;
+T16 Varmt brugsvand, loft;48;20;45;58;56.0;
+T16 Varmt brugsvand, loft;48;20;50;68;61.2;
+T16 Varmt brugsvand, loft;48;30;45;25;24.1;
+T16 Varmt brugsvand, loft;48;30;50;35;29.3;
+T16 Varmt brugsvand, loft;60;0;45;971;961.5;
+T16 Varmt brugsvand, loft;60;0;50;982;967.9;
+T16 Varmt brugsvand, loft;60;20;45;72;68.8;
+T16 Varmt brugsvand, loft;60;20;50;83;75.1;
+T16 Varmt brugsvand, loft;60;30;45;32;29.5;
+T16 Varmt brugsvand, loft;60;30;50;43;35.8;
+T16 Varmt brugsvand, loft;89;0;45;1382;1366.8;
+T16 Varmt brugsvand, loft;89;0;50;1400;1375.8;
+T16 Varmt brugsvand, loft;89;20;45;103;99.6;
+T16 Varmt brugsvand, loft;89;20;50;121;108.6;
+T16 Varmt brugsvand, loft;89;30;45;44;42.5;
+T16 Varmt brugsvand, loft;89;30;50;61;51.5;

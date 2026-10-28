@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Verificér</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%232dd4bf'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%2306201d' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%2306201d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+.box{max-width:900px;margin:0 auto}
+.drop{display:block;margin-top:12px;border:2px dashed var(--line);border-radius:14px;padding:26px;text-align:center;color:var(--ink2);cursor:pointer;transition:border-color .2s,background .2s}
+.drop.over,.drop:hover{border-color:var(--accent);background:var(--soft)}
+.fr{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:10px;background:var(--panel)}
+.fr .h{grid-column:1/-1;font-weight:700}
+.hash{font:11px "JetBrains Mono",monospace;color:var(--ink3);word-break:break-all}
+</style>
+</head>
+<body>
+<main class="wrap"><div class="box">
+  <div class="eyebrow">Verifikation</div><h1 style="margin:4px 0 6px">Kan hvert tal og hver fil efterprøves?</h1>
+  <p class="sub">Tre niveauer: <b>filen</b> (er den leveret uændret?), <b>tallet</b> (hvert trin i beregningen vises under "Vis beregning" på varmetabskortet og i rapportens bilag) og <b>metoden</b>
+    (genberegning fra kildemodellen og validering mod DS 452 og Energihåndbogen, celle for celle).</p>
+  <label class="drop" id="drop"><input type="file" id="files" multiple hidden><b>Slip en rapport, et regneark, en opmåling eller en IFC her</b> eller klik for at vælge. Filen hashes i browseren og sendes ingen steder hen.</label>
+  <div id="fres"></div>
+  <div class="card" style="margin-top:16px"><h3>Genberegning</h3><div id="repro" class="sub"></div></div>
+  <div class="card" style="margin-top:16px"><h3>Validering celle for celle</h3><div class="act"><a class="btn" href="downloads/validering_ds452_anneks_a.csv">DS 452 anneks A (72 værdier, CSV)</a><a class="btn" href="downloads/validering_energihaandbogen.csv">Energihåndbogen (96 værdier, CSV)</a><a class="btn" href="metode.html">Grafer og fund</a></div></div>
+  <details class="more" style="margin-top:12px"><summary>Alle leverede filer med SHA-256</summary><div class="tablewrap"><table class="t" id="mtab"></table></div></details>
+</div></main>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(async () => {
+const { $, esc } = IF;
+const [M, R] = await IF.load('manifest', 'reproduce');
+const byHash = Object.fromEntries(M.files.map(f => [f.sha256, f])), byName = {}; M.files.forEach(f => (byName[f.name] = byName[f.name] || []).push(f));
+const inputs = `model ${M.inputs.model} · brand-vidensbase ${M.inputs.fire_kb} · kode ${M.inputs.code}`;
+async function hashFile(file) { const b = await crypto.subtle.digest('SHA-256', await file.arrayBuffer()); return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join(''); }
+async function onFiles(list) {
+  for (const file of list) {
+    const h = await hashFile(file), m = byHash[h], same = byName[file.name];
+    $('#fres').insertAdjacentHTML('afterbegin', m
+      ? `<div class="fr"><div class="h okline">✓ ${esc(file.name)}: ægte leverance</div><span class="note">Hvad</span><span>${esc(m.what || m.path)}</span>
+         <span class="note">Lavet af</span><span class="mono">${esc(m.producer || '–')}</span><span class="note">Grundlag</span><span class="mono">${esc(inputs)}</span>
+         <span class="note">Kontrol</span><span>${esc(m.how || '')}${m.tests.length ? '<div class="hash">' + m.tests.map(esc).join(' · ') + '</div>' : ''}</span>
+         <span class="note">SHA-256</span><span class="hash">${h}</span></div>`
+      : `<div class="fr"><div class="h badline">✗ ${esc(file.name)}: ${same ? 'ændret efter udlevering' : 'ikke en leverance fra dette projekt'}</div>
+         <span class="note">SHA-256</span><span class="hash">${h}</span>${same ? `<span class="note">Leveret</span><span class="hash">${same[0].sha256}</span>` : ''}</div>`);
+  }
+}
+$('#files').onchange = e => onFiles(e.target.files);
+const dz = $('#drop');
+['dragenter', 'dragover'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.add('over'); }));
+['dragleave', 'drop'].forEach(ev => dz.addEventListener(ev, e => { e.preventDefault(); dz.classList.remove('over'); }));
+dz.addEventListener('drop', e => onFiles(e.dataTransfer.files));
+$('#repro').innerHTML = `<div class="${R.ok ? 'okline' : 'badline'}">${R.ok ? '✓' : '✗'} ${R.checks.filter(c => c.ok).length}/${R.checks.length} kontroller bestået ved seneste genberegning</div>
+  <ul class="cond">${R.checks.map(c => `<li>${c.ok ? '✓' : '✗'} ${esc(c.check)}${c.detail ? ` <span class="note">(${esc(c.detail)})</span>` : ''}</li>`).join('')}</ul>
+  <p class="note">Kør selv: <span class="mono">python -m isoleret.reproduce</span>.</p>`;
+$('#mtab').innerHTML = '<tr><th>Fil</th><th>Lavet af</th><th>SHA-256</th></tr>' + M.files.map(f => `<tr><td><a href="${esc(f.path)}">${esc(f.path)}</a></td><td class="mono">${esc(f.producer || '–')}</td><td class="hash">${f.sha256}</td></tr>`).join('');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+{
+ "product": "Isoleret",
+ "generated": "2026-10-28",
+ "inputs": {
+  "model": "fc3a5302c359f135",
+  "fire_kb": "24c668bf97ac",
+  "code": "4a8b96f78b69"
+ },
+ "files": [
+  {
+   "path": "downloads/blok_c_isolering.ifc",
+   "name": "blok_c_isolering.ifc",
+   "bytes": 242166,
+   "sha256": "fc3a5302c359f1354eb8a69ba0199bc8769c60938b8519c4a578f13281892ea8",
+   "producer": "isoleret.model",
+   "what": "Demonstrationsmodel (IFC4)",
+   "how": "Kilde; facitliste i models/planted.json",
+   "tests": [
+    "test_i5_answer_key"
+   ]
+  },
+  {
+   "path": "downloads/Isoleringsaudit_blok_c.xlsx",
+   "name": "Isoleringsaudit_blok_c.xlsx",
+   "bytes": 12370,
+   "sha256": "3e576c75297980aadf3e899f70200af78e7f82e5e993d546397b114ed6cf4275",
+   "producer": "isoleret.report",
+   "what": "Audit-regneark",
+   "how": "Samme tal som audit.json",
+   "tests": [
+    "test_i10_deliverables"
+   ]
+  },
+  {
+   "path": "downloads/Isoleringsrapport_blok_c.pdf",
+   "name": "Isoleringsrapport_blok_c.pdf",
+   "bytes": 208965,
+   "sha256": "af430e4a525d4389ca7229612cad592eadbe3d676d1277a26eac95ee1bde8fbd",
+   "producer": "isoleret.report",
+   "what": "Isoleringsrapport (PDF)",
+   "how": "Hver strækning: klasse, U mod grænse, forslag; beregningstrin i bilag",
+   "tests": [
+    "test_i10_deliverables",
+    "test_i6_audit_consistency"
+   ]
+  },
+  {
+   "path": "downloads/Opmaaling_blok_c.csv",
+   "name": "Opmaaling_blok_c.csv",
+   "bytes": 5053,
+   "sha256": "b4b440a9b56f1aae9a825431d32aa71648c0ffa83f35e0487875ebc0ae76c714",
+   "producer": "isoleret.survey",
+   "what": "Opmåling (CSV) for demonstrationsbygningen",
+   "how": "Round trip: CSV giver samme audit som IFC",
+   "tests": [
+    "test_i8_survey_round_trip"
+   ]
+  },
+  {
+   "path": "downloads/Opmaaling_skabelon.csv",
+   "name": "Opmaaling_skabelon.csv",
+   "bytes": 196,
+   "sha256": "2d845d87e79b598d240029eb71f804b2bf99c4a653d5ad98b2d8268327434f2b",
+   "producer": "isoleret.survey",
+   "what": "Tom opmålingsskabelon",
+   "how": "Kolonnerne er dokumenteret i survey.py",
+   "tests": []
+  },
+  {
+   "path": "downloads/validering_ds452_anneks_a.csv",
+   "name": "validering_ds452_anneks_a.csv",
+   "bytes": 1343,
+   "sha256": "9f3009f3d44b21c3f5118df31db44f528250f3e14a522e74a07c9d2b32e926a5",
+   "producer": "isoleret.validate",
+   "what": "Validering 1, celle for celle",
+   "how": "Publiceret mod model for 72 værdier",
+   "tests": [
+    "test_i3_ds452_annex_a"
+   ]
+  },
+  {
+   "path": "downloads/validering_energihaandbogen.csv",
+   "name": "validering_energihaandbogen.csv",
+   "bytes": 4613,
+   "sha256": "b1d416e677d6d2fd5c00ac930405a2ca6517a13a06bd2411d812861aec27f8f0",
+   "producer": "isoleret.validate",
+   "what": "Validering 2, celle for celle",
+   "how": "Publiceret mod model for 96 værdier",
+   "tests": [
+    "test_i4_energihaandbogen"
+   ]
+  },
+  {
+   "path": "data/audit.json",
+   "name": "audit.json",
+   "bytes": 77613,
+   "sha256": "f728991cfdfa4f46c5141d7f57bba470834571393dd3443e44b36b2dd85e6c35",
+   "producer": "isoleret.audit",
+   "what": "Data bag appen",
+   "how": "Samme tal som rapporten",
+   "tests": [
+    "test_i5_answer_key",
+    "test_i6_audit_consistency",
+    "test_i7_fire_crosscheck"
+   ]
+  },
+  {
+   "path": "data/downloads.json",
+   "name": "downloads.json",
+   "bytes": 205,
+   "sha256": "309537b0932dd469cd3c6e41b3d6e2ae0297aa57495e7ca486a91dddb881c9d0",
+   "producer": "isoleret.export_web",
+   "what": "Data bag appen",
+   "how": "Samme tal som rapporten",
+   "tests": []
+  },
+  {
+   "path": "data/kb.json",
+   "name": "kb.json",
+   "bytes": 5621,
+   "sha256": "7f1a137529ec03104c4d8de984de5b69b0805eb757d7777bd2454b57315ce619",
+   "producer": "isoleret.export_web",
+   "what": "Data bag appen",
+   "how": "Samme tal som rapporten",
+   "tests": [
+    "test_i9_browser_parity"
+   ]
+  },
+  {
+   "path": "data/validation.json",
+   "name": "validation.json",
+   "bytes": 19021,
+   "sha256": "57ecbe251c2a3759ff6ff5777a7f4b81031970dc395119993c7d3ab9b769eb22",
+   "producer": "isoleret.validate",
+   "what": "Data bag appen",
+   "how": "Samme tal som rapporten",
+   "tests": [
+    "test_i3_ds452_annex_a",
+    "test_i4_energihaandbogen"
+   ]
+  }
+ ],
+ "reproduce": "python -m isoleret.reproduce"
+}

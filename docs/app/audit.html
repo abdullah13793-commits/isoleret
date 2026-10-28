@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Audit og materialer</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%232dd4bf'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%2306201d' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%2306201d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+table.t th[data-k]{cursor:pointer}
+table.t th[data-k]:hover{color:var(--ink)}
+tr.r:hover td{background:var(--panel2)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="pagehead"><div><div class="eyebrow">Audit · DS 452</div><h1>Alle strækninger, krav og forslag</h1>
+    <p>Hver strækning med klasse fra tabel 6.4, U-værdi mod grænsen, forslag, besparelse og tilbagebetaling. Samme tal som rapporten og Excel-filen.</p></div>
+    <div class="act" id="dl"></div></div>
+  <div class="grid g4" id="kpis" style="margin-bottom:14px"></div>
+  <div class="card"><div class="filters"><select id="fStatus"><option value="">Alle statusser</option></select><input id="fText" placeholder="Søg" size="12"></div>
+    <div class="tablewrap"><table class="t" id="tbl"></table></div></div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card"><h2 style="font-size:15px">Materialeliste for forslaget</h2><div class="tablewrap"><table class="t" id="bom"></table></div>
+      <p class="note">+5 % til spild. Varenumre efter leverandørens sortiment. Kapper til ventiler, pumper og målere i halv tykkelse (DS 452 tabel 6.2).</p></div>
+    <div class="card"><h2 style="font-size:15px">Besparelse mod pris pr. strækning</h2><div class="note">kWh/år mod overslag i kr. · linjerne viser 5, 10 og 20 års simpel tilbagebetaling</div><div id="sc"></div></div>
+  </div>
+</main>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(async () => {
+const { $, $$, esc, num, badge, STATUS, ORDER, SYS, insText, tip } = IF;
+const [A, DL] = await IF.load('audit', 'downloads');
+const S = A.summary;
+$('#dl').innerHTML = DL.filter(f => !f.endsWith('.ifc')).map(f => `<a class="btn ${f.endsWith('.pdf') ? 'pri' : ''}" href="downloads/${f}" ${f.endsWith('.pdf') ? 'target="_blank"' : ''}>${esc(f.replace(/_/g, ' ').replace(/\.(\w+)$/, ' ($1)'))}</a>`).join('');
+$('#kpis').innerHTML = [[`${num(S.kwh_saved)} kWh`, 'besparelse pr. år', `${num(Math.round(100 * S.kwh_saved / S.kwh_now))} % af tabet i dag`], [`${num(S.cost_dkk)} kr.`, 'overslag', 'eksempelpriser'],
+  [`${String(S.payback_years).replace('.', ',')} år`, 'simpel tilbagebetaling', `${num(S.dkk_per_year)} kr./år`], [`${S.components_uninsulated}`, 'uisolerede komponenter', 'ventiler, pumper, målere']]
+  .map(([v, l, s]) => `<div class="kpi"><div class="v">${v}</div><div class="l">${l}</div><div class="s">${s}</div></div>`).join('');
+const COLS = [['id', 'ID'], ['name', 'Strækning'], ['space', 'Rum'], ['class', 'Kl.'], ['od_mm', 'Ø mm', 1], ['length', 'm', 1], ['ins', 'Isolering i dag'], ['U', 'U / grænse', 1],
+  ['status', 'Status'], ['prop', 'Forslag'], ['kwh', 'kWh/år', 1], ['cost', 'Pris kr.', 1], ['pb', 'Tilbagebet.', 1]];
+let sort = ['kwh', -1], filt = {status: '', text: ''};
+const val = (r, k) => ({ins: r.insulation ? r.insulation.thickness : 0, U: r.U_now, prop: r.proposal ? r.proposal.thickness_mm : 0, kwh: r.proposal ? r.proposal.kwh : 0,
+  cost: r.proposal ? r.proposal.cost_dkk : 0, pb: r.proposal && r.proposal.payback_years ? r.proposal.payback_years : 999}[k] ?? r[k]);
+$('#fStatus').innerHTML += ORDER.map(s => `<option value="${s}">${STATUS[s][0]}</option>`).join('');
+$('#fStatus').onchange = e => { filt.status = e.target.value; table(); }; $('#fText').oninput = e => { filt.text = e.target.value.toLowerCase(); table(); };
+function table() {
+  const rows = A.runs.filter(r => (!filt.status || r.status === filt.status) && (!filt.text || (r.id + r.name + r.space).toLowerCase().includes(filt.text)))
+    .sort((a, b) => { const x = val(a, sort[0]), y = val(b, sort[0]); return (typeof x === 'string' ? String(x).localeCompare(String(y)) : x - y) * sort[1]; });
+  $('#tbl').innerHTML = `<tr>${COLS.map(([k, l, n]) => `<th data-k="${k}" class="${n ? 'num' : ''}">${l}${sort[0] === k ? (sort[1] > 0 ? ' ↑' : ' ↓') : ''}</th>`).join('')}</tr>` + rows.map(r => { const p = r.proposal;
+    return `<tr class="r"><td class="mono"><a href="index.html#${r.id}">${r.id}</a></td><td>${esc(r.name)}<div class="note">${esc(SYS[r.system] || r.system)}</div></td><td>${esc(r.space)}<div class="note">${num(r.ambient)} °C</div></td>
+    <td>${esc(r.class)}</td><td class="num">${num(r.od_mm, 1)}</td><td class="num">${num(r.length, 1)}</td><td>${esc(insText(r.insulation))}</td>
+    <td class="num">${r.U_limit ? `${num(r.U_now, 3)}<div class="note">${num(r.U_limit, 3)}</div>` : '–'}</td><td>${badge(r.status)}</td>
+    <td>${p ? `${esc(p.product)} ${p.thickness_mm} mm` : '–'}</td><td class="num">${p ? num(p.kwh) : '–'}</td><td class="num">${p ? num(p.cost_dkk) : '–'}</td>
+    <td class="num">${p && p.payback_years ? num(p.payback_years, 1) + ' år' : '–'}</td></tr>`; }).join('');
+  $$('#tbl th[data-k]').forEach(th => th.onclick = () => { sort = [th.dataset.k, sort[0] === th.dataset.k ? -sort[1] : (th.classList.contains('num') ? -1 : 1)]; table(); });
+}
+table();
+$('#bom').innerHTML = '<tr><th>Produkt</th><th class="num">Rør Ø</th><th class="num">mm</th><th>Kappe</th><th class="num">Bestilles</th></tr>' + A.bom.map(b =>
+  `<tr><td>${esc(b.product)}</td><td class="num">${num(b.pipe_od_mm, 1)}</td><td class="num">${b.thickness_mm}</td><td>${esc(b.cladding)}</td><td class="num">${b.order_m ? num(b.order_m) + ' m' : b.pieces + ' stk.'}</td></tr>`).join('');
+// scatter: savings vs cost
+const pts = A.runs.filter(r => r.proposal && r.proposal.kwh > 0).map(r => ({id: r.id, x: r.proposal.cost_dkk, y: r.proposal.kwh, dkk: r.proposal.dkk_per_year, pb: r.proposal.payback_years}));
+const W = 560, H = 260, L = 52, B = 30, T = 12, R = 12, xm = Math.max(...pts.map(p => p.x)) * 1.1, ym = Math.max(...pts.map(p => p.y)) * 1.1;
+const X = v => L + (W - L - R) * v / xm, Y = v => T + (H - T - B) * (1 - v / ym);
+const price = A.runs.find(r => r.proposal && r.proposal.kwh) ? A.runs.find(r => r.proposal && r.proposal.kwh).proposal.dkk_per_year / A.runs.find(r => r.proposal && r.proposal.kwh).proposal.kwh : 0.75;
+let s = `<svg class="chart" viewBox="0 0 ${W} ${H}">`;
+[0, 1000, 2000, 3000].filter(v => v <= ym).forEach(v => s += `<line class="ax" x1="${L}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${L - 6}" y="${Y(v) + 4}" text-anchor="end">${num(v)}</text>`);
+[0, 2000, 4000, 6000, 8000].filter(v => v <= xm).forEach(v => s += `<text x="${X(v)}" y="${H - 10}" text-anchor="middle">${num(v)}</text>`);
+[5, 10, 20].forEach(yr => { const x2 = Math.min(xm, ym * price * yr); s += `<line x1="${X(0)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(x2 / price / yr)}" stroke="var(--ink3)" stroke-dasharray="3 4"/><text x="${X(x2) - 4}" y="${Y(x2 / price / yr) - 4}" text-anchor="end" style="fill:var(--ink3)">${yr} år</text>`; });
+pts.forEach(p => s += `<circle cx="${X(p.x)}" cy="${Y(p.y)}" r="5" fill="var(--bar)" stroke="var(--panel)" stroke-width="1.5" data-t="<b>${p.id}</b>: ${num(p.y)} kWh/år, ${num(p.x)} kr., ${p.pb ? num(p.pb, 1) + ' år' : '–'}"/><circle cx="${X(p.x)}" cy="${Y(p.y)}" r="11" fill="transparent" data-t="<b>${p.id}</b>: ${num(p.y)} kWh/år, ${num(p.x)} kr., ${p.pb ? num(p.pb, 1) + ' år' : '–'}"/>`);
+pts.filter(p => p.y > ym * 0.25).forEach(p => s += `<text x="${X(p.x) + 8}" y="${Y(p.y) + 4}" style="fill:var(--ink2)">${p.id}</text>`);
+$('#sc').innerHTML = s + `<text x="${W - R}" y="${H - 10}" text-anchor="end"> </text></svg>`;
+$$('#sc [data-t]').forEach(c => { c.onmousemove = e => tip(c.dataset.t, e); c.onmouseleave = () => tip(null); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,11 @@
+﻿# keep every file byte-for-byte: the SHA-256 manifest and the knowledge-base version hash the exact bytes
+* -text
+*.pdf binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.mp4 binary
+*.glb binary
+*.xlsx binary
+*.docx binary
+*.bcfzip binary

@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Isoleret</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%232dd4bf'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%2306201d' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%2306201d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+html,body{height:100%}
+body{display:flex;flex-direction:column;height:100vh}
+.top{flex:none}
+.subbar{display:flex;align-items:center;gap:8px;padding:8px 16px;border-bottom:1px solid var(--line);background:var(--panel);overflow-x:auto;flex:none;scrollbar-width:none}
+.subbar .k,.subbar .demo{white-space:nowrap}
+.subbar .k{display:flex;gap:6px;align-items:baseline;border:1px solid var(--line);border-radius:999px;padding:3px 11px;background:var(--panel2);font-size:12.5px;color:var(--ink2)}
+.subbar .k b{color:var(--ink);font-size:14px}
+.pmain{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(380px,1fr);flex:1;min-height:0}
+#viewer{position:relative;background:var(--viewer);overflow:hidden}
+#viewer canvas{display:block;width:100%;height:100%}
+.vbar{position:absolute;left:12px;top:12px;display:flex;gap:6px;flex-wrap:wrap;z-index:5}
+.seg{display:flex;background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:3px;gap:2px}
+.seg button{border:0;background:none;color:var(--ink2);padding:5px 10px;border-radius:6px;font:600 12px Inter,sans-serif;cursor:pointer}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.legend{position:absolute;left:12px;bottom:12px;background:color-mix(in srgb,var(--panel) 90%,transparent);border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:12px;color:var(--ink2);display:flex;gap:12px;flex-wrap:wrap;align-items:center;max-width:calc(100% - 24px)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.ramp{width:140px;height:10px;border-radius:4px}
+.tag{position:absolute;right:12px;top:12px;font-size:11.5px;color:var(--ink3);background:color-mix(in srgb,var(--panel) 80%,transparent);padding:4px 9px;border-radius:7px;border:1px solid var(--line)}
+aside{border-left:1px solid var(--line);background:var(--panel);display:flex;flex-direction:column;min-height:0}
+.pane{overflow:auto;flex:1;min-height:0;padding:12px 14px 30px}
+.row{grid-template-columns:52px 1fr auto}
+.bar{height:6px;border-radius:4px;background:var(--line);margin-top:4px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--bar)}
+.kv{display:grid;grid-template-columns:1fr auto;gap:4px 12px;font-size:13px}
+.kv span:nth-child(odd){color:var(--ink2)}
+.kv b{font-variant-numeric:tabular-nums;text-align:right}
+.cmp{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.cmp .box{border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--panel)}
+.cmp .box .v{font-size:22px;font-weight:800;letter-spacing:-.02em}
+@media (max-width:900px){body{display:block;height:auto}.pmain{grid-template-columns:1fr;height:auto}#viewer{height:44vh}aside{border-left:0;border-top:1px solid var(--line)}.legend{font-size:11px}}
+</style>
+</head>
+<body>
+<div class="subbar" id="kpis"></div>
+<div class="pmain">
+  <section id="viewer">
+    <div class="vbar">
+      <div class="seg" id="mode"><button data-m="status" class="on">Status</button><button data-m="loss">Varmetab W/m</button><button data-m="save">Besparelse</button></div>
+      <div class="seg" id="storeys"></div>
+    </div>
+    <div class="tag">Fiktiv demonstrationsbygning · DS 452 · EN ISO 12241</div>
+    <div class="legend" id="legend"></div>
+  </section>
+  <aside>
+    <div class="pane" id="pane">
+      <div class="filters"><select id="fStatus"><option value="">Alle statusser</option></select><select id="fSys"><option value="">Alle systemer</option><option value="heating">Varme</option><option value="dhw">Varmt brugsvand</option><option value="cold_water">Koldt vand</option></select>
+        <select id="fSort"><option value="save">Største besparelse</option><option value="loss">Største varmetab</option><option value="id">ID</option></select></div>
+      <div id="detail"></div>
+      <div id="list"></div>
+    </div>
+  </aside>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.147.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script src="assets/calc.js"></script>
+<script>
+(async () => {
+const { $, $$, esc, css, num, badge, STATUS, ORDER, SYS, insText } = IF;
+await IF.ready();
+const [A] = await IF.load('audit');
+const RUNS = A.runs, BY = Object.fromEntries(RUNS.map(r => [r.id, r]));
+let mode = 'status', sel = null, storey = '', filt = {status: '', sys: '', sort: 'save'};
+const T = {};
+const S = A.summary;
+$('#kpis').innerHTML = [[`${S.runs}`, 'strækninger', `${num(S.metres)} m`], [`${num(S.kwh_now)}`, 'kWh/år tab i dag', ''], [`${num(S.kwh_saved)}`, 'kWh/år kan spares', ''],
+  [`${num(S.dkk_per_year)} kr.`, 'pr. år', ''], [`${String(S.payback_years).replace('.', ',')} år`, 'tilbagebetaling', ''], [`${num(S.co2_kg)} kg`, 'CO₂ pr. år', ''],
+  [`${S.fire_conflicts}/${S.penetrations}`, 'brandgennemføringer at holde øje med', '']]
+  .map(([v, l]) => `<span class="k"><b>${v}</b>${l}</span>`).join('') + '<span class="demo" style="margin-left:auto">Eksempelpriser · fiktivt projekt</span>';
+const save = r => r.proposal ? r.proposal.kwh : 0;
+const lossM = r => Math.max(0, r.q_now);
+const maxLoss = Math.max(...RUNS.map(lossM)), maxSave = Math.max(...RUNS.map(r => r.proposal ? r.proposal.kwh / r.length : 0));
+const STOREYS = [['', 'Alle'], ['k', 'K'], ['st', 'ST'], ['1', '1'], ['2', '2'], ['t', 'Tag']];
+const zOf = {k: [-3, 0], st: [0, 3], 1: [3, 6], 2: [6, 9], t: [9, 12]};
+
+$('#fStatus').innerHTML += ORDER.map(s => `<option value="${s}">${STATUS[s][0]}</option>`).join('');
+$('#fStatus').onchange = e => { filt.status = e.target.value; list(); paint(); };
+$('#fSys').onchange = e => { filt.sys = e.target.value; list(); paint(); };
+$('#fSort').onchange = e => { filt.sort = e.target.value; list(); };
+$$('#mode button').forEach(b => b.onclick = () => { mode = b.dataset.m; $$('#mode button').forEach(x => x.classList.toggle('on', x === b)); paint(); legend(); });
+$('#storeys').innerHTML = STOREYS.map(([v, l]) => `<button data-v="${v}" class="${v === '' ? 'on' : ''}">${l}</button>`).join('');
+$$('#storeys button').forEach(b => b.onclick = () => { storey = b.dataset.v; $$('#storeys button').forEach(x => x.classList.toggle('on', x === b)); layout(); });
+
+const shown = r => (!filt.status || r.status === filt.status) && (!filt.sys || r.system === filt.sys);
+function list() {
+  const rows = RUNS.filter(shown).sort((a, b) => filt.sort === 'id' ? a.id.localeCompare(b.id) : filt.sort === 'loss' ? lossM(b) * b.length - lossM(a) * a.length : save(b) - save(a));
+  const mx = Math.max(1, ...rows.map(save));
+  $('#list').innerHTML = rows.map(r => `<div class="row ${sel && sel.id === r.id ? 'sel' : ''}" data-id="${r.id}"><div class="id">${r.id}</div>
+    <div><div class="t">${esc(r.name)}</div><div class="s">${esc(r.space)} · ${num(r.ambient)} °C · kl. ${esc(r.class)} · ${esc(insText(r.insulation))}</div>
+    ${r.proposal && r.proposal.kwh ? `<div class="bar"><i style="width:${100 * r.proposal.kwh / mx}%"></i></div>` : ''}</div>${badge(r.status)}</div>`).join('');
+  $$('#list .row').forEach(e => e.onclick = () => { location.hash = e.dataset.id; });
+}
+function detail(r) {
+  const p = r.proposal, f = r.fire || [];
+  const conflict = f.filter(x => x.conflict).length;
+  $('#detail').innerHTML = `<div class="card flat" style="margin-bottom:12px"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start">
+    <div><span class="mono" style="color:var(--ink2)">${r.id}</span><h2 style="font-size:18px;margin:2px 0">${esc(r.name)}</h2>
+    <div class="sub">${esc(SYS[r.system] || r.system)} · ${esc(r.space)} (${num(r.ambient)} °C, ${esc(r.zone || '')}) · ${num(r.length, 1)} m · medie ${num(r.tm)} °C, ${num(r.hours)} h/år</div></div>${badge(r.status)}</div>
+    <div class="sec"><h3>DS 452</h3><div class="kv"><span>Klasse (tabel 6.4, omgivelse ${esc(r.ambient_band)})</span><b>${esc(r.class)}</b>
+      <span>U inkl. bæringer (×${String(r.support_factor).replace('.', ',')})</span><b>${r.U_now ? num(r.U_now, 3) : '–'} W/mK</b>
+      <span>Grænse for klassen</span><b>${r.U_limit ? num(r.U_limit, 3) + ' W/mK' : '–'}</b>
+      <span>Isolering i dag</span><b>${esc(insText(r.insulation))}</b><span>Varmetab i dag</span><b>${num(r.q_now, 1)} W/m · ${num(r.kwh_now)} kWh/år</b>
+      ${r.dew_point !== null && r.tm < r.ambient ? `<span>Dugpunkt / overflade</span><b>${num(r.dew_point, 1)} / ${num(r.ts_now, 1)} °C</b>` : ''}</div></div>
+    ${p ? `<div class="sec"><h3>Forslag</h3><div class="cmp"><div class="box"><div class="note">I dag</div><div class="v">${num(r.q_now, 1)} W/m</div><div class="note">${esc(insText(r.insulation))}</div></div>
+      <div class="box"><div class="note">Efter</div><div class="v">${num(p.q_new, 1)} W/m</div><div class="note">${esc(p.product)} ${p.thickness_mm} mm${r.components.length ? ` + kapper ${p.jacket_mm} mm på ${r.components.length} komponenter` : ''}</div></div></div>
+      <div class="kv" style="margin-top:8px"><span>Besparelse</span><b>${num(p.kwh)} kWh/år · ${num(p.dkk_per_year)} kr./år · ${num(p.co2_kg)} kg CO₂</b>
+      <span>Overslag (eksempelpriser)</span><b>${num(p.cost_dkk)} kr.</b><span>Simpel tilbagebetaling</span><b>${p.payback_years ? String(p.payback_years).replace('.', ',') + ' år' : 'ingen energibesparelse (kondens / hygiejne)'}</b></div></div>` : ''}
+    ${f.length ? `<div class="sec"><h3>Brandgennemføringer (${f.length}${conflict ? `, ${conflict} med konflikt` : ''})</h3>${f.slice(0, 3).map(x => `<div class="sol" style="margin-bottom:6px"><div class="ref">${esc(x.host)} (${esc(x.rating)})</div>
+      <div class="note">I dag: ${esc(x.now.status)}${x.now.ref ? ` · ${esc(x.now.ref.eta)} ${esc(x.now.ref.section)} s. ${x.now.ref.page}` : ''} → efter: ${esc(x.new.status || '–')}</div><div class="sub" style="margin-top:4px">${esc(x.recommendation)}</div></div>`).join('')}
+      ${f.length > 3 ? `<a class="btn sm" href="brand.html#${r.id}">Alle ${f.length}</a>` : ''}</div>` : ''}
+    <details class="more"><summary>Vis beregning (alle trin, kan regnes efter i hånden)</summary>${IFCalc.trace(r)}</details>
+    <div class="act"><a class="btn sm" href="beregner.html#${r.id}">Åbn i beregneren</a></div></div>`;
+}
+function route() { const r = BY[decodeURIComponent(location.hash.slice(1))]; if (r) { sel = r; detail(r); list(); paint(); } }
+window.addEventListener('hashchange', route);
+
+/* colours */
+const hexToRgb = h => { const n = parseInt(h.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
+function ramp(t) { const dark = IF.isDark(); const a = hexToRgb(dark ? '#3b2416' : '#fde7d2'), b = hexToRgb(dark ? '#ff9a4d' : '#b4410f');
+  return new THREE.Color(...a.map((x, i) => (x + (b[i] - x) * Math.max(0, Math.min(1, t))) / 255)); }
+function colorOf(r) {
+  if (mode === 'status') return new THREE.Color(css(STATUS[r.status][1]));
+  if (mode === 'loss') return ramp(lossM(r) / maxLoss);
+  return r.proposal && r.proposal.kwh ? ramp(r.proposal.kwh / r.length / maxSave) : new THREE.Color(css('--miss'));
+}
+function legend() {
+  if (mode === 'status') $('#legend').innerHTML = ORDER.map(s => `<span><i style="background:var(${STATUS[s][1]})"></i>${STATUS[s][0]}</span>`).join('') + '<span class="note">isolering vist halvgennemsigtig om røret</span>';
+  else { const c0 = '#' + ramp(0).getHexString(), c1 = '#' + ramp(1).getHexString();
+    $('#legend').innerHTML = `<span>${mode === 'loss' ? '0 W/m' : '0 kWh/m'}</span><span class="ramp" style="background:linear-gradient(90deg,${c0},${c1})"></span><span>${mode === 'loss' ? num(maxLoss) + ' W/m' : num(maxSave) + ' kWh/m pr. år'}</span>`; }
+}
+/* 3D */
+function init3d() {
+  const el = $('#viewer'), r = T.r = new THREE.WebGLRenderer({antialias: true, preserveDrawingBuffer: true});
+  r.setPixelRatio(Math.min(2, devicePixelRatio)); el.appendChild(r.domElement);
+  T.scene = new THREE.Scene(); T.cam = new THREE.PerspectiveCamera(36, 1, 0.1, 500);
+  T.ctl = new THREE.OrbitControls(T.cam, r.domElement); T.ctl.enableDamping = true;
+  T.scene.add(new THREE.HemisphereLight(0xffffff, 0x445566, 1.1)); const d = new THREE.DirectionalLight(0xffffff, 0.8); d.position.set(20, 40, 10); T.scene.add(d);
+  T.root = new THREE.Group(); T.root.rotation.x = -Math.PI / 2; T.scene.add(T.root);
+  new THREE.GLTFLoader().load('building.glb', g => {
+    T.model = g.scene; T.root.add(T.model); T.items = [];
+    T.model.traverse(o => { if (!o.isMesh) return; const n = (o.name || o.parent.name); o.userData.n = n; o.geometry.computeVertexNormals();
+      const m = /^([PIC])_(.+?)__/.exec(n); if (m) { o.userData.kind = m[1]; o.userData.run = m[2]; T.items.push(o); }
+      o.geometry.computeBoundingBox(); o.userData.z = o.geometry.boundingBox.getCenter(new THREE.Vector3()).z; });
+    paint(); resize(); fit(); window.G.ready = true;
+  });
+  addEventListener('resize', resize);
+  r.domElement.addEventListener('pointerdown', e => T.down = [e.clientX, e.clientY]);
+  r.domElement.addEventListener('pointerup', e => { if (T.down && Math.hypot(e.clientX - T.down[0], e.clientY - T.down[1]) < 5) pick(e); });
+  (function loop() { requestAnimationFrame(loop); if (window.G.frozen) return; T.ctl.update(); r.render(T.scene, T.cam); })();
+  document.addEventListener('themechange', () => { paint(); legend(); });
+}
+function resize() { const el = $('#viewer'); T.r.setSize(el.clientWidth, el.clientHeight); T.cam.aspect = el.clientWidth / el.clientHeight; T.cam.updateProjectionMatrix(); }
+function fit() { const b = new THREE.Box3().setFromObject(T.model), c = b.getCenter(new THREE.Vector3()), s = b.getSize(new THREE.Vector3());
+  T.cam.position.copy(c.clone().add(new THREE.Vector3(s.x * 0.62, s.y * 1.25, s.z * 2.7))); T.ctl.target.copy(c); T.ctl.update(); }
+function paint() {
+  if (!T.model) return;
+  const dark = IF.isDark(); T.scene.background = new THREE.Color(css('--viewer'));
+  T.model.traverse(o => {
+    if (!o.isMesh) return; const n = o.userData.n;
+    if (n.startsWith('H_')) o.material = new THREE.MeshStandardMaterial({color: dark ? 0x56606e : 0xb9c0ca, transparent: true, opacity: n === 'H_slab' ? 0.08 : 0.14, depthWrite: false, side: THREE.DoubleSide});
+    else if (n.startsWith('Z_')) { const cold = n.includes('Tagrum') || n.includes('Kældergang');
+      o.material = new THREE.MeshBasicMaterial({color: cold ? 0x60a5fa : 0xf59e0b, transparent: true, opacity: dark ? 0.035 : 0.05, depthWrite: false, side: THREE.DoubleSide}); }
+    else if (o.userData.run) {
+      const r = BY[o.userData.run]; if (!r) return; const on = shown(r), s = sel && sel.id === r.id, c = colorOf(r);
+      if (o.userData.kind === 'I') o.material = new THREE.MeshStandardMaterial({color: c, transparent: true, opacity: on ? (s ? 0.75 : 0.5) : 0.06, depthWrite: false, roughness: 0.9});
+      else if (o.userData.kind === 'P') { const ins = !!r.insulation; o.material = new THREE.MeshStandardMaterial({color: ins ? (dark ? 0xcfd5dd : 0x5b6472) : c,
+        emissive: (ins ? new THREE.Color(0) : c.clone().multiplyScalar(dark ? 0.45 : 0.15)), transparent: !on, opacity: on ? 1 : 0.1, roughness: 0.4, metalness: 0.2}); }
+      else o.material = new THREE.MeshStandardMaterial({color: on ? new THREE.Color(css('--bad')) : 0x888888, transparent: !on, opacity: on ? 1 : 0.1});
+    }
+  });
+  layout();
+}
+function layout() {
+  if (!T.model) return;
+  T.model.traverse(o => { if (!o.isMesh) return; if (!storey) { o.visible = true; return; } const [z0, z1] = zOf[storey];
+    o.visible = o.userData.n.startsWith('H_') || (o.userData.z >= z0 - 0.3 && o.userData.z <= z1 + 0.05) || (o.userData.n.startsWith('Z_') && o.userData.z >= z0 && o.userData.z <= z1); });
+}
+function pick(e) {
+  const b = T.r.domElement.getBoundingClientRect(), m = new THREE.Vector2((e.clientX - b.left) / b.width * 2 - 1, -(e.clientY - b.top) / b.height * 2 + 1);
+  const ray = new THREE.Raycaster(); ray.params.Line = {threshold: 0.1}; ray.setFromCamera(m, T.cam);
+  const hit = ray.intersectObjects(T.items.filter(o => o.visible)).find(h => h.object.userData.run);
+  if (hit) location.hash = hit.object.userData.run;
+}
+window.G = {ready: false, render: () => { T.ctl.update(); T.r.render(T.scene, T.cam); }, three: T, select: id => { location.hash = id; }, mode: m => { $(`#mode button[data-m="${m}"]`).click(); },
+  camera: (p, t) => { T.cam.position.set(...p); T.ctl.target.set(...t); T.ctl.update(); }};
+list(); legend(); init3d();
+if (location.hash.length > 1) route(); else { sel = null; $('#detail').innerHTML = `<div class="callout" style="margin-bottom:12px"><b>${S.status.UNDER || 0} strækninger er for tyndt isoleret, ${S.status.MANGLER || 0} er uisolerede og ${S.status.KONDENS || 0} har kondensrisiko.</b> Vælg en strækning i listen eller i modellen. Forslagene sparer ${num(S.kwh_saved)} kWh/år; ${S.fire_conflicts} brandgennemføringer kræver, at den testede isolering bevares lokalt.</div>`; }
+})();
+</script>
+</body>
+</html>

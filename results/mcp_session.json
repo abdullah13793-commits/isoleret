@@ -1,0 +1,1219 @@
+{
+ "server": "isoleret",
+ "tools": [
+  "audit_overview",
+  "check_pipe",
+  "ds452_class",
+  "fire_crosscheck",
+  "get_run",
+  "list_runs",
+  "materials",
+  "run_audit"
+ ],
+ "pipe": {
+  "class": 4,
+  "table_6_4_row": [
+   "dhw",
+   "distribution",
+   null
+  ],
+  "ambient_band": "> 5 °C",
+  "support_factor": 1.15,
+  "heat_loss_w_per_m": 9.41,
+  "U_w_per_mk": 0.2689,
+  "surface_temp_c": 24.4,
+  "lambda_used": [
+   0.0377
+  ],
+  "U_limit": 0.202,
+  "meets_class": false,
+  "required_mm": 34.8,
+  "required_standard_mm": 40,
+  "component_half_thickness_mm": 17.4,
+  "savings_vs_bare": {
+   "kwh_per_year": 2909,
+   "dkk_per_year": 2182,
+   "co2_kg": 192,
+   "note": "example price and CO2 factor"
+  }
+ },
+ "cold": {
+  "class": 2,
+  "table_6_4_row": [
+   "cold_water",
+   "pipes",
+   null
+  ],
+  "ambient_band": "> 5 °C",
+  "support_factor": 1.0,
+  "heat_loss_w_per_m": -20.32,
+  "U_w_per_mk": 1.6935,
+  "surface_temp_c": 10.0,
+  "lambda_used": [],
+  "U_limit": 0.3404,
+  "meets_class": false,
+  "required_mm": 24.5,
+  "required_standard_mm": 25,
+  "component_half_thickness_mm": 12.2,
+  "dew_point_c": 12.5,
+  "condensation": true,
+  "condensation_free_mm": 0.9
+ },
+ "cls": {
+  "class": 6,
+  "row": [
+   "heating",
+   "distribution",
+   "other"
+  ],
+  "condensation": false,
+  "ambient_band": "≤ 5 °C"
+ },
+ "overview": {
+  "model": "blok_c_isolering.ifc",
+  "runs": 25,
+  "metres": 425.2,
+  "status": {
+   "UNDER": 17,
+   "MANGLER": 4,
+   "OK": 2,
+   "DS439": 1,
+   "KONDENS": 1
+  },
+  "kwh_now": 28480,
+  "kwh_saved": 12998,
+  "co2_kg": 855,
+  "cost_dkk": 78520,
+  "dkk_per_year": 9749,
+  "payback_years": 8.1,
+  "penetrations": 29,
+  "fire_conflicts": 19,
+  "components_uninsulated": 14,
+  "note": "example prices; fictitious building"
+ },
+ "under": [
+  {
+   "id": "K1",
+   "name": "Varme fremløb stål 60,3",
+   "space": "Kældergang",
+   "class": 3,
+   "status": "UNDER",
+   "insulation": "Stenuld lamelmåtte 30 mm",
+   "proposal": "Stenuld rørskål (80-100 kg/m³) 40 mm",
+   "kwh_saved": 1198
+  },
+  {
+   "id": "K2",
+   "name": "Varme retur stål 60,3",
+   "space": "Kældergang",
+   "class": 3,
+   "status": "UNDER",
+   "insulation": "Stenuld lamelmåtte 30 mm",
+   "proposal": "Stenuld rørskål (80-100 kg/m³) 40 mm",
+   "kwh_saved": 387
+  },
+  {
+   "id": "K3",
+   "name": "Brugsvand varmt stål 42,4 (galv.)",
+   "space": "Kældergang",
+   "class": 4,
+   "status": "UNDER",
+   "insulation": "Stenuld lamelmåtte 40 mm",
+   "proposal": "Stenuld rørskål (80-100 kg/m³) 50 mm",
+   "kwh_saved": 716
+  },
+  {
+   "id": "K4",
+   "name": "Cirkulation kobber 28x1",
+   "space": "Kældergang",
+   "class": 4,
+   "status": "UNDER",
+   "insulation": "Stenuld rørskål 80 kg/m³ 20 mm",
+   "proposal": "Stenuld rørskål 80 kg/m³ 40 mm",
+   "kwh_saved": 704
+  },
+  {
+   "id": "L0-VV",
+   "name": "Brugsvandsgren kobber 22x1, Stueetage",
+   "space": "Lejligheder, stue",
+   "class": 4,
+   "status": "UNDER",
+   "insulation": "Stenuld rørskål 80 kg/m³ 20 mm",
+   "proposal": "Stenuld rørskål 80 kg/m³ 30 mm",
+   "kwh_saved": 189
+  },
+  {
+   "id": "L1-VV",
+   "name": "Brugsvandsgren kobber 22x1, 1. sal",
+   "space": "Lejligheder, 1. sal",
+   "class": 4,
+   "status": "UNDER",
+   "insulation": "Stenuld rørskål 80 kg/m³ 20 mm",
+   "proposal": "Stenuld rørskål 80 kg/m³ 30 mm",
+   "kwh_saved": 189
+  },
+  {
+   "id": "R1",
+   "name": "Cirkulation kobber 28x1, tagrum",
+   "space": "Tagrum",
+   "class": 6,
+   "status": "UNDER",
+   "insulation": "Stenuld lamelmåtte 30 mm",
+   "proposal": "Stenuld rørskål (80-100 kg/m³) 100 mm",
+   "kwh_saved": 1087
+  },
+  {
+   "id": "R2",
+   "name": "Varme fremløb stål 33,7 til tagaggregat",
+   "space": "Tagrum",
+   "class": 6,
+   "status": "UNDER",
+   "insulation": "Stenuld lamelmåtte 50 mm",
+   "proposal": "Stenuld rørskål (80-100 kg/m³) 100 mm",
+   "kwh_saved": 314
+  },
+  {
+   "id": "S-A1-K",
+   "name": "Stigstreng koldt vand kobber 22x1, skakt A1",
+   "space": "Skakt A1",
+   "class": 2,
+   "status": "UNDER",
+   "insulation": "Kaiflex ST 13 mm",
+   "proposal": "Kaiflex ST 19 mm",
+   "kwh_saved": 0
+  },
+  {
+   "id": "S-A1-V",
+   "name": "Varmestreng stål 42,4x2,6, skakt A1",
+   "space": "Skakt A1",
+   "class": 3,
+   "status": "UNDER",
+   "insulation": "Stenuld rørskål 80 kg/m³ 30 mm",
+   "proposal": "Stenuld rørskål 80 kg/m³ 40 mm",
+   "kwh_saved": 158
+  },
+  {
+   "id": "S-A2-K",
+   "name": "Stigstreng koldt vand kobber 22x1, skakt A2",
+   "space": "Skakt A2",
+   "class": 2,
+   "status": "UNDER",
+   "insulation": "Kaiflex ST 13 mm",
+   "proposal": "Kaiflex ST 19 mm",
+   "kwh_saved": 0
+  },
+  {
+   "id": "S-A2-V",
+   "name": "Varmestreng stål 42,4x2,6, skakt A2",
+   "space": "Skakt A2",
+   "class": 3,
+   "status": "UNDER",
+   "insulation": "Stenuld rørskål 80 kg/m³ 30 mm",
+   "proposal": "Stenuld rørskål 80 kg/m³ 40 mm",
+   "kwh_saved": 158
+  },
+  {
+   "id": "S-B1-K",
+   "name": "Stigstreng koldt vand kobber 22x1, skakt B1",
+   "space": "Skakt B1",
+   "class": 2,
+   "status": "UNDER",
+   "insulation": "Armaflex AF 13 mm",
+   "proposal": "Armaflex AF 19 mm",
+   "kwh_saved": 0
+  },
+  {
+   "id": "S-B1-VV",
+   "name": "Stigstreng varmt brugsvand kobber 28x1, skakt B1",
+   "space": "Skakt B1",
+   "class": 4,
+   "status": "UNDER",
+   "insulation": "Stenuld rørskål 80 kg/m³ 30 mm",
+   "proposal": "Stenuld rørskål 80 kg/m³ 40 mm",
+   "kwh_saved": 144
+  },
+  {
+   "id": "S-B2-K",
+   "name": "Stigstreng koldt vand kobber 22x1, skakt B2",
+   "space": "Skakt B2",
+   "class": 2,
+   "status": "UNDER",
+   "insulation": "Kaiflex ST 13 mm",
+   "proposal": "Kaiflex ST 19 mm",
+   "kwh_saved": 0
+  },
+  {
+   "id": "S-B2-V",
+   "name": "Varmestreng stål 42,4x2,6, skakt B2",
+   "space": "Skakt B2",
+   "class": 3,
+   "status": "UNDER",
+   "insulation": "Stenuld rørskål 80 kg/m³ 30 mm",
+   "proposal": "Stenuld rørskål 80 kg/m³ 40 mm",
+   "kwh_saved": 158
+  },
+  {
+   "id": "T1",
+   "name": "Fjernvarmestik stål 60,3",
+   "space": "Teknikrum",
+   "class": 4,
+   "status": "UNDER",
+   "insulation": "Stenuld rørskål 80 kg/m³ 40 mm",
+   "proposal": "Stenuld rørskål 80 kg/m³ 60 mm",
+   "kwh_saved": 1212
+  }
+ ],
+ "run": {
+  "id": "K1",
+  "name": "Varme fremløb stål 60,3",
+  "system": "heating",
+  "part": "distribution",
+  "operation": "season_regulated",
+  "space": "Kældergang",
+  "zone": "uopvarmet, inden for klimaskærm",
+  "ambient": 12.0,
+  "rh": 65,
+  "tm": 60.0,
+  "hours": 5800.0,
+  "od_mm": 60.3,
+  "material": "Stål",
+  "length": 16.0,
+  "supports": "traditional",
+  "support_factor": 1.15,
+  "class": 3,
+  "class_row": [
+   "heating",
+   "distribution",
+   "season_regulated"
+  ],
+  "ambient_band": "> 5 °C",
+  "insulation": {
+   "material": "stenuld_lamel",
+   "thickness": 0.03,
+   "cladding": "laerred",
+   "product": "Stenuld lamelmåtte",
+   "covering": "1vTk5AsvzPiu$Nc98PWNET"
+  },
+  "q_now": 18.47,
+  "ts_now": 17.3,
+  "U_now": 0.3847,
+  "dew_point": 5.6,
+  "condensation_now": false,
+  "U_limit": 0.3006,
+  "status": "UNDER",
+  "proposal": {
+   "material": "stenuld_roerskaal",
+   "thickness": 0.04,
+   "cladding": "pvc",
+   "product": "Stenuld rørskål (80-100 kg/m³)",
+   "thickness_mm": 40,
+   "q_new": 14.22,
+   "ts_new": 15.7,
+   "U_new": 0.2962,
+   "kwh_pipe": 394,
+   "kwh_components": 804,
+   "kwh": 1198,
+   "co2_kg": 79,
+   "cost_dkk": 5049,
+   "dkk_per_year": 898,
+   "payback_years": 5.6,
+   "jacket_mm": 20,
+   "carrier": "fjernvarme"
+  },
+  "components": [
+   {
+    "kind": "ventil",
+    "insulated": false,
+    "loss_w": 23.6
+   },
+   {
+    "kind": "ventil",
+    "insulated": false,
+    "loss_w": 23.6
+   },
+   {
+    "kind": "pumpe",
+    "insulated": false,
+    "loss_w": 118.0
+   }
+  ],
+  "kwh_now": 2672,
+  "fire": [
+   {
+    "segment": "2kYCmGTfvQ8PR4MAK9DLoY",
+    "host": "Teknikrumsvæg, beton 150",
+    "host_guid": "3FC2yCvVHIzhFh8f8otOL8",
+    "kind": "rigid_wall",
+    "thickness_mm": 150,
+    "rating": "EI 60",
+    "ei_required": 60,
+    "storey": "Kælder",
+    "point": [
+     14.0,
+     10.6,
+     -0.5
+    ],
+    "now": {
+     "status": "TESTET",
+     "ref": {
+      "eta": "ETA-21/0110",
+      "section": "A.3.6.1",
+      "page": 37,
+      "system": "Multimastic C",
+      "classification": "EI 240 C/U",
+      "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+      "insulation_length": 1000.0,
+      "deviates": []
+     }
+    },
+    "new": {
+     "status": "TESTET",
+     "ref": {
+      "eta": "ETA-21/0110",
+      "section": "A.3.4",
+      "page": 33,
+      "system": "Multimastic C",
+      "classification": "E 240 C/U, EI 180 C/U",
+      "insulation": "1000 mm length of 30-80 mm Stone wool insulation, 80 kg/m3",
+      "insulation_length": 1000.0,
+      "deviates": []
+     }
+    },
+    "half_thickness_mm": 20,
+    "keep_tested": false,
+    "recommendation": "Efterisoleringen kan føres gennem tætningen: opbygningen er testet.",
+    "conflict": false
+   }
+  ]
+ },
+ "fire": [
+  {
+   "run": "K4",
+   "pipe": "Cirkulation kobber 28x1",
+   "host": "Teknikrumsvæg, beton 150",
+   "rating": "EI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.3.6",
+     "page": 36,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 120 C/U",
+     "insulation": "1000 mm length of 20 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.3.6",
+     "page": 36,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 120 C/U",
+     "insulation": "1000 mm length of 20 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 20 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  },
+  {
+   "run": "S-A1-K",
+   "pipe": "Stigstreng koldt vand kobber 22x1, skakt A1",
+   "host": "Huldæk 220 over Kælder",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 7,
+   "recommendation": "Behold den testede isolering (Kaiflex ST 13 mm) gennem tætningen; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 7 mm) er opfyldt."
+  },
+  {
+   "run": "S-A1-K",
+   "pipe": "Stigstreng koldt vand kobber 22x1, skakt A1",
+   "host": "Huldæk 220 over Stueetage",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 7,
+   "recommendation": "Behold den testede isolering (Kaiflex ST 13 mm) gennem tætningen; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 7 mm) er opfyldt."
+  },
+  {
+   "run": "S-A1-K",
+   "pipe": "Stigstreng koldt vand kobber 22x1, skakt A1",
+   "host": "Huldæk 220 over 1. sal",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 7,
+   "recommendation": "Behold den testede isolering (Kaiflex ST 13 mm) gennem tætningen; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 7 mm) er opfyldt."
+  },
+  {
+   "run": "S-A1-V",
+   "pipe": "Varmestreng stål 42,4x2,6, skakt A1",
+   "host": "Huldæk 220 over Kælder",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 30 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  },
+  {
+   "run": "S-A1-V",
+   "pipe": "Varmestreng stål 42,4x2,6, skakt A1",
+   "host": "Huldæk 220 over Stueetage",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 30 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  },
+  {
+   "run": "S-A1-V",
+   "pipe": "Varmestreng stål 42,4x2,6, skakt A1",
+   "host": "Huldæk 220 over 1. sal",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 30 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  },
+  {
+   "run": "S-A2-K",
+   "pipe": "Stigstreng koldt vand kobber 22x1, skakt A2",
+   "host": "Huldæk 220 over Kælder",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 7,
+   "recommendation": "Behold den testede isolering (Kaiflex ST 13 mm) gennem tætningen; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 7 mm) er opfyldt."
+  },
+  {
+   "run": "S-A2-K",
+   "pipe": "Stigstreng koldt vand kobber 22x1, skakt A2",
+   "host": "Huldæk 220 over Stueetage",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 7,
+   "recommendation": "Behold den testede isolering (Kaiflex ST 13 mm) gennem tætningen; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 7 mm) er opfyldt."
+  },
+  {
+   "run": "S-A2-K",
+   "pipe": "Stigstreng koldt vand kobber 22x1, skakt A2",
+   "host": "Huldæk 220 over 1. sal",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 7,
+   "recommendation": "Behold den testede isolering (Kaiflex ST 13 mm) gennem tætningen; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 7 mm) er opfyldt."
+  },
+  {
+   "run": "S-A2-V",
+   "pipe": "Varmestreng stål 42,4x2,6, skakt A2",
+   "host": "Huldæk 220 over Kælder",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 30 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  },
+  {
+   "run": "S-A2-V",
+   "pipe": "Varmestreng stål 42,4x2,6, skakt A2",
+   "host": "Huldæk 220 over Stueetage",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 30 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  },
+  {
+   "run": "S-A2-V",
+   "pipe": "Varmestreng stål 42,4x2,6, skakt A2",
+   "host": "Huldæk 220 over 1. sal",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 30 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  },
+  {
+   "run": "S-B2-K",
+   "pipe": "Stigstreng koldt vand kobber 22x1, skakt B2",
+   "host": "Huldæk 220 over Kælder",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 7,
+   "recommendation": "Behold den testede isolering (Kaiflex ST 13 mm) gennem tætningen; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 7 mm) er opfyldt."
+  },
+  {
+   "run": "S-B2-K",
+   "pipe": "Stigstreng koldt vand kobber 22x1, skakt B2",
+   "host": "Huldæk 220 over Stueetage",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 7,
+   "recommendation": "Behold den testede isolering (Kaiflex ST 13 mm) gennem tætningen; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 7 mm) er opfyldt."
+  },
+  {
+   "run": "S-B2-K",
+   "pipe": "Stigstreng koldt vand kobber 22x1, skakt B2",
+   "host": "Huldæk 220 over 1. sal",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.8",
+     "page": 56,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 60 C/U",
+     "insulation": "9-13 mm Kaiflex ST insulation",
+     "insulation_length": null,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 7,
+   "recommendation": "Behold den testede isolering (Kaiflex ST 13 mm) gennem tætningen; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 7 mm) er opfyldt."
+  },
+  {
+   "run": "S-B2-V",
+   "pipe": "Varmestreng stål 42,4x2,6, skakt B2",
+   "host": "Huldæk 220 over Kælder",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 30 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  },
+  {
+   "run": "S-B2-V",
+   "pipe": "Varmestreng stål 42,4x2,6, skakt B2",
+   "host": "Huldæk 220 over Stueetage",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 30 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  },
+  {
+   "run": "S-B2-V",
+   "pipe": "Varmestreng stål 42,4x2,6, skakt B2",
+   "host": "Huldæk 220 over 1. sal",
+   "rating": "REI 60",
+   "now": {
+    "status": "TESTET",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": []
+    }
+   },
+   "after": {
+    "status": "AFVIGELSE",
+    "ref": {
+     "eta": "ETA-21/0110",
+     "section": "A.4.4.1",
+     "page": 49,
+     "system": "Multimastic C",
+     "classification": "E 240 C/U, EI 90 C/U",
+     "insulation": "1000 mm length of 30 mm Stone wool insulation, 80 kg/m³",
+     "insulation_length": 1000.0,
+     "deviates": [
+      "isoleringstykkelse"
+     ]
+    }
+   },
+   "half_thickness_mm": 17,
+   "recommendation": "Behold den testede isolering (Stenuld rørskål 80 kg/m³ 30 mm) gennem tætningen over 1000 mm; efterisolér uden for den testede længde. DS 452 tabel 6.2 (halv tykkelse i gennemføringer, 17 mm) er opfyldt."
+  }
+ ],
+ "mats": {
+  "stenuld_roerskaal": {
+   "name": "Stenuld rørskål (80-100 kg/m³)",
+   "lambda_curve": [
+    [
+     10,
+     0.034
+    ],
+    [
+     50,
+     0.039
+    ],
+    [
+     100,
+     0.046
+    ],
+    [
+     150,
+     0.055
+    ],
+    [
+     250,
+     0.078
+    ]
+   ],
+   "max_temp_c": 250
+  },
+  "stenuld_lamel": {
+   "name": "Stenuld lamelmåtte (pap/lærred)",
+   "lambda_curve": [
+    [
+     10,
+     0.037
+    ],
+    [
+     50,
+     0.043
+    ],
+    [
+     100,
+     0.051
+    ],
+    [
+     150,
+     0.061
+    ]
+   ],
+   "max_temp_c": 250
+  },
+  "elastomer": {
+   "name": "Elastomer (cellegummi)",
+   "lambda_curve": [
+    [
+     -20,
+     0.031
+    ],
+    [
+     0,
+     0.033
+    ],
+    [
+     20,
+     0.035
+    ],
+    [
+     40,
+     0.037
+    ],
+    [
+     100,
+     0.044
+    ]
+   ],
+   "max_temp_c": 105
+  },
+  "pe_skum": {
+   "name": "PE-skum",
+   "lambda_curve": [
+    [
+     0,
+     0.036
+    ],
+    [
+     10,
+     0.037
+    ],
+    [
+     40,
+     0.04
+    ],
+    [
+     70,
+     0.044
+    ]
+   ],
+   "max_temp_c": 90
+  },
+  "pir": {
+   "name": "PIR-skål",
+   "lambda_curve": [
+    [
+     10,
+     0.022
+    ],
+    [
+     50,
+     0.026
+    ],
+    [
+     100,
+     0.031
+    ]
+   ],
+   "max_temp_c": 140
+  },
+  "ref_ds452": {
+   "name": "DS 452 anneks A, reference (tilpasset)",
+   "lambda_curve": [
+    [
+     0,
+     0.0459
+    ],
+    [
+     200,
+     0.0459
+    ]
+   ],
+   "max_temp_c": 400
+  },
+  "ref_ens": {
+   "name": "Energihåndbogen, reference λ 0,038",
+   "lambda_curve": [
+    [
+     0,
+     0.038
+    ],
+    [
+     200,
+     0.038
+    ]
+   ],
+   "max_temp_c": 400
+  }
+ }
+}

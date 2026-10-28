@@ -1,0 +1,307 @@
+{
+ "runs": 25,
+ "correct": 25,
+ "all_ok": true,
+ "rows": [
+  {
+   "id": "K1",
+   "expected": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "K2",
+   "expected": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "K3",
+   "expected": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "K4",
+   "expected": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "K5",
+   "expected": {
+    "class": 2,
+    "status": "MANGLER"
+   },
+   "got": {
+    "class": 2,
+    "status": "MANGLER"
+   },
+   "ok": true
+  },
+  {
+   "id": "K6",
+   "expected": {
+    "class": 3,
+    "status": "OK"
+   },
+   "got": {
+    "class": 3,
+    "status": "OK"
+   },
+   "ok": true
+  },
+  {
+   "id": "T1",
+   "expected": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "T2",
+   "expected": {
+    "class": 2,
+    "status": "KONDENS"
+   },
+   "got": {
+    "class": 2,
+    "status": "KONDENS"
+   },
+   "ok": true
+  },
+  {
+   "id": "S-A1-V",
+   "expected": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "S-A1-K",
+   "expected": {
+    "class": 2,
+    "status": null
+   },
+   "got": {
+    "class": 2,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "S-A2-V",
+   "expected": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "S-A2-K",
+   "expected": {
+    "class": 2,
+    "status": null
+   },
+   "got": {
+    "class": 2,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "S-B1-VV",
+   "expected": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "S-B1-K",
+   "expected": {
+    "class": 2,
+    "status": null
+   },
+   "got": {
+    "class": 2,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "S-B2-V",
+   "expected": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 3,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "S-B2-K",
+   "expected": {
+    "class": 2,
+    "status": null
+   },
+   "got": {
+    "class": 2,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "L0-V",
+   "expected": {
+    "class": 2,
+    "status": "MANGLER"
+   },
+   "got": {
+    "class": 2,
+    "status": "MANGLER"
+   },
+   "ok": true
+  },
+  {
+   "id": "L0-VV",
+   "expected": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "L1-V",
+   "expected": {
+    "class": 2,
+    "status": "MANGLER"
+   },
+   "got": {
+    "class": 2,
+    "status": "MANGLER"
+   },
+   "ok": true
+  },
+  {
+   "id": "L1-VV",
+   "expected": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 4,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "L2-V",
+   "expected": {
+    "class": 2,
+    "status": "MANGLER"
+   },
+   "got": {
+    "class": 2,
+    "status": "MANGLER"
+   },
+   "ok": true
+  },
+  {
+   "id": "L2-VV",
+   "expected": {
+    "class": 4,
+    "status": "OK"
+   },
+   "got": {
+    "class": 4,
+    "status": "OK"
+   },
+   "ok": true
+  },
+  {
+   "id": "R1",
+   "expected": {
+    "class": 6,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 6,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "R2",
+   "expected": {
+    "class": 6,
+    "status": "UNDER"
+   },
+   "got": {
+    "class": 6,
+    "status": "UNDER"
+   },
+   "ok": true
+  },
+  {
+   "id": "R3",
+   "expected": {
+    "class": "DS 439",
+    "status": "DS439"
+   },
+   "got": {
+    "class": "DS 439",
+    "status": "DS439"
+   },
+   "ok": true
+  }
+ ]
+}

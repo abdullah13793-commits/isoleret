@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metode og validering</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect x='4' y='4' width='24' height='24' rx='5' fill='%232dd4bf'/%3E%3Ccircle cx='16' cy='16' r='7' fill='none' stroke='%2306201d' stroke-width='3'/%3E%3Ccircle cx='16' cy='16' r='2.5' fill='%2306201d'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/app.css">
+<style>
+.eq{font:13px "JetBrains Mono",monospace;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:10px 12px;overflow-x:auto;white-space:pre}
+td.c{text-align:center;font-weight:700}
+.lg{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin-top:6px}
+.lg i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="pagehead"><div><div class="eyebrow">Metode og validering</div><h1>Hvordan tallene er regnet, og hvor godt de rammer</h1>
+    <p>To offentlige tabeller er genskabt med præcis den beregning, appen bruger. Hvor kilden ikke angiver en forudsætning, er den tilpasset og står her.</p></div></div>
+  <div class="grid g2">
+    <div class="card"><h3>Varmetab, EN ISO 12241</h3><div class="eq">q = (θm − θa) / ( Σ ln(Dj+1/Dj) / (2π λj) + 1/(π De hse) )
+λj ved lagets middeltemperatur (produktets λ-kurve)
+hse = hcv + hr
+hcv vandret rør, stille luft: 1,25·(Δθ/D)^(1/4)  (D³·Δθ ≤ 10)
+                              1,21·Δθ^(1/3)      (ellers)
+hr  = ε σ (Ts⁴ − Ta⁴) / (Ts − Ta)</div>
+      <p class="note">Overfladetemperatur, lagtemperaturer og λ løses samtidig. Kolde rør: samme ligninger; overfladen sammenlignes med luftens dugpunkt (Magnus).</p></div>
+    <div class="card"><h3>DS 452: klasser og tillæg</h3><div class="eq">U-grænse (W/mK) for rør, D i m:
+kl. 1: 3,3·D + 0,22    kl. 4: 1,5·D + 0,16
+kl. 2: 2,6·D + 0,20    kl. 5: 1,1·D + 0,14
+kl. 3: 2,0·D + 0,18    kl. 6: 0,85·D + 0,12
+Bæringer gennem isoleringen: +15 % (inde), +25 % (ude)
+Komponenter og gennemføringer: halv tykkelse (tabel 6.2)</div>
+      <div id="cls" style="margin-top:8px"></div></div>
+  </div>
+  <div class="card sec"><h3>Tabel 6.4: klasse efter anlæg, del og omgivelse</h3><div class="tablewrap"><table class="t" id="t64"></table></div>
+    <p class="note">≤ 5 °C: ude, i jord, uopvarmet rum uden for klimaskærmen. &gt; 5 °C: opvarmet rum eller uopvarmet rum inden for klimaskærmen. ¹ kondensisoleres efter forholdene.</p></div>
+  <div class="grid g2 sec">
+    <div class="card"><h3>Validering 1: DS 452 anneks A, tabel A.1 og A.2</h3><div id="v1s" class="sub"></div><div id="v1"></div>
+      <div class="lg"><span><i style="background:var(--bar)"></i>tabel A.1 (bæringer uden på isoleringen)</span><span><i style="background:var(--dev)"></i>tabel A.2 (traditionelle bæringer, +15 %)</span></div></div>
+    <div class="card"><h3>Validering 2: Energihåndbogen, teknisk isolering</h3><div id="v2s" class="sub"></div><div id="v2"></div>
+      <div class="lg"><span><i style="background:var(--bar)"></i>model som tallene er regnet (uden 50 %-regel)</span><span><i style="background:var(--bad)"></i>med 50 %-reglen som teksten beskriver (kælder)</span></div></div>
+  </div>
+  <div class="callout sec" id="finding"></div>
+  <div class="card sec"><h3>Forudsætninger og grænser</h3><ul class="cond" style="font-size:13px">
+    <li>λ-kurver er typiske deklarerede værdier for materialeklassen. Projektet erstatter dem med det valgte produkts datablad.</li>
+    <li>Priser, CO₂-faktorer og montagetid er eksempler. De rettes i Beregneren eller i kundens prisliste.</li>
+    <li>Komponenter: en ventil = 0,2 m rør, en pumpe = 1 m rør af samme dimension (Energihåndbogens konvention).</li>
+    <li>Brandkrydstjek bruger de testede opbygninger i ETA-21/0110 og ETA-20/1322; en afvigelse kræver en brandteknisk vurdering, som udarbejdes og underskrives af en person.</li>
+    <li>Demonstrationsbygningen og dens installationer er fiktive.</li></ul></div>
+</main>
+<script src="engine.js"></script>
+<script src="assets/common.js"></script>
+<script>
+(async () => {
+const { $, esc, num, tip } = IF;
+const KB = await IF.ready();
+const [V] = await IF.load('validation');
+const L = KB.labels;
+$('#t64').innerHTML = '<tr><th>Anlæg</th><th>Installationsdel</th><th>Drift</th><th class="num">≤ 5 °C</th><th class="num">&gt; 5 °C</th></tr>' + KB.table_6_4.map(r =>
+  `<tr><td>${esc(L[r.system] || r.system)}</td><td>${esc(L[r.part] || r.part)}</td><td>${esc(r.operation ? L[r.operation] || r.operation : '')}</td><td class="c">${r.le5 === null ? '–' : esc(r.le5)}${r.condensation ? '¹' : ''}</td><td class="c">${esc(r.gt5)}${r.condensation ? '¹' : ''}</td></tr>`).join('');
+function axes(W, H, x0, x1, y0, y1, xt, yt, xl, yl) {
+  const Lm = 48, B = 34, T = 10, R = 10, X = v => Lm + (W - Lm - R) * (v - x0) / (x1 - x0), Y = v => T + (H - T - B) * (1 - (v - y0) / (y1 - y0));
+  let s = `<svg class="chart" viewBox="0 0 ${W} ${H}">`;
+  yt.forEach(v => s += `<line class="ax" x1="${Lm}" x2="${W - R}" y1="${Y(v)}" y2="${Y(v)}"/><text x="${Lm - 6}" y="${Y(v) + 4}" text-anchor="end">${num(v, 2)}</text>`);
+  xt.forEach(v => s += `<text x="${X(v)}" y="${H - 18}" text-anchor="middle">${num(v, 2)}</text>`);
+  s += `<text x="${(W + Lm) / 2}" y="${H - 3}" text-anchor="middle" style="fill:var(--ink3)">${xl}</text><text x="${Lm}" y="${T - 1}" style="fill:var(--ink3)">${yl}</text>`;
+  return {s, X, Y};
+}
+// class limits: sequential ramp light->dark, direct labels
+(() => { const W = 520, H = 230; const a = axes(W, H, 0, 0.2, 0, 1, [0, 0.05, 0.1, 0.15, 0.2].map(v => v), [0, 0.25, 0.5, 0.75, 1], 'udv. rørdiameter, m', 'W/mK'); let s = a.s;
+  for (let c = 1; c <= 6; c++) { const k = KB.pipe_k[c], col = `color-mix(in srgb, var(--bar) ${30 + c * 12}%, var(--panel))`;
+    s += `<path d="M${a.X(0)},${a.Y(k[1])} L${a.X(0.2)},${a.Y(k[0] * 0.2 + k[1])}" stroke="${col}" stroke-width="2" fill="none"/><text x="${a.X(0.2) - 4}" y="${a.Y(k[0] * 0.2 + k[1]) + (c === 6 ? 13 : -5)}" text-anchor="end" style="fill:var(--ink2)">kl. ${c}</text>`; }
+  $('#cls').innerHTML = s + '</svg>'; })();
+function scatter(el, series, max, xl, yl) {
+  const W = 520, H = 280, step = max > 500 ? 250 : 25, t = []; for (let v = 0; v <= max; v += step) t.push(v);
+  const a = axes(W, H, 0, max, 0, max, t, t, xl, yl); let s = a.s + `<line x1="${a.X(0)}" y1="${a.Y(0)}" x2="${a.X(max)}" y2="${a.Y(max)}" stroke="var(--ink3)" stroke-dasharray="4 4"/>`;
+  series.forEach(({pts, col, mark}) => pts.forEach(p => { const tt = esc(p.t); s += mark === 'x'
+    ? `<path d="M${a.X(p.x) - 4},${a.Y(p.y) - 4} l8,8 M${a.X(p.x) + 4},${a.Y(p.y) - 4} l-8,8" stroke="${col}" stroke-width="2"/><circle cx="${a.X(p.x)}" cy="${a.Y(p.y)}" r="8" fill="transparent" data-t="${tt}"/>`
+    : `<circle cx="${a.X(p.x)}" cy="${a.Y(p.y)}" r="4" fill="${col}" stroke="var(--panel)" stroke-width="1.5"/><circle cx="${a.X(p.x)}" cy="${a.Y(p.y)}" r="8" fill="transparent" data-t="${tt}"/>`; }));
+  el.innerHTML = s + '</svg>'; el.querySelectorAll('[data-t]').forEach(c => { c.onmousemove = e => tip(c.dataset.t, e); c.onmouseleave = () => tip(null); });
+}
+const v1 = V.V1_DS452_annexA, v2 = V.V2_Energihaandbogen;
+$('#v1s').innerHTML = `${v1.cells} værdier (Ø18-60 mm, klasse 1-6, 60/20 °C) · RMS ${num(v1.rms_mm, 2)} mm · største afvigelse ${num(v1.max_abs_mm, 1)} mm · ${v1.within_2mm} inden for 2 mm. Tilpasset design-λ ${num(v1.fitted_lambda, 4)} W/mK (standarden angiver den ikke).`;
+scatter($('#v1'), [{pts: v1.data.filter(d => d.table === 'A.1').map(d => ({x: d.published, y: d.model, t: `A.1 Ø${d.D} kl. ${d.class}: standard ${d.published} mm, model ${d.model} mm`})), col: 'var(--bar)'},
+  {pts: v1.data.filter(d => d.table === 'A.2').map(d => ({x: d.published, y: d.model, t: `A.2 Ø${d.D} kl. ${d.class}: standard ${d.published} mm, model ${d.model} mm`})), col: 'var(--dev)'}], 175, 'DS 452, mm', 'Isoleret, mm');
+$('#v2s').innerHTML = `${v2.cells} værdier (tabel 11, 12, 15, 16; stålrør Ø35-89) · uisolerede rækker inden for ${num(v2.bare_max_rel_pct, 1)} % · øvrige gennemsnitlig ${num(v2.insulated_mean_abs_kwh, 1)} kWh. λ 0,038 som angivet; tilpasset emissivitet for malet stålrør ${num(v2.fitted_eps_bare_steel, 2)}.`;
+scatter($('#v2'), [{pts: v2.data.map(d => ({x: d.published, y: d.model, t: `${d.table} Ø${d.D} ${d.from_mm}→${d.to_mm} mm: ${d.published} / model ${d.model} kWh/m`})), col: 'var(--bar)'},
+  {pts: v2.data.filter(d => d.model_with_halving !== null && d.from_mm === 0).map(d => ({x: d.published, y: d.model_with_halving, t: `${d.table} Ø${d.D}: med 50 %-regel ${d.model_with_halving}`})), col: 'var(--bad)', mark: 'x'}], 1450, 'Energihåndbogen, kWh/m/år', 'Isoleret');
+const h = v2.halving_finding;
+$('#finding').innerHTML = `<b>Fund i kilden.</b> Teksten til tabel 11 og 15 (kælder) siger, at halvdelen af varmetabet før efterisolering udnyttes til opvarmning og ikke regnes som tab. De offentliggjorte tal genskabes kun <i>uden</i> den regel
+  (gennemsnitlig afvigelse ${num(h.mean_rel_err_without_halving_pct, 1)} %); med reglen ville alle ${h.basement_bare_cells} kælderværdier være ${num(Math.abs(h.mean_rel_err_with_halving_pct))} % lavere.
+  Isoleret regner med det fulde tab og viser det, så rådgiveren kan vælge forudsætningen bevidst.`;
+})();
+</script>
+</body>
+</html>
